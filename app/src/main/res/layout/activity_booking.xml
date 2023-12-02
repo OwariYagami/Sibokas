@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.BookingActivity">
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:navigationIcon="@drawable/ic_back"
         android:background="@color/md_theme_light_primary">
 
-    </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.MaterialToolbar>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,43 +41,60 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
 
-        <TextView
-            android:id="@+id/tv_classname"
+        <com.google.android.material.card.MaterialCardView
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_smbld"
-            android:text="SB1-03"
-            android:textColor="@color/md_theme_light_primary"
-            android:textSize="@dimen/_14sdp"
+            app:cardElevation="@dimen/_5sdp"
+            style="?attr/materialCardViewElevatedStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_classroomphoto"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/iv_classroomphoto">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp">
 
-        <TextView
-            android:id="@+id/tv_classalias"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_smbld"
-            android:text="Lab Pemograman"
-            android:textColor="@color/md_theme_light_primary"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_classname"></TextView>
+                <TextView
+                    android:id="@+id/tv_classname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_smbld"
+                    android:text="SB1-03"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="@dimen/_14sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="@dimen/_100sdp"
+                <TextView
+                    android:id="@+id/tv_classalias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_smbld"
+                    android:text="Lab Pemograman"
+                    android:textColor="@color/md_theme_light_primary"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_classname"></TextView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_smbld"
             android:text="Pesan"
-            android:background="@drawable/bg_btn_pesan"
+            android:id="@+id/btn_pesan"
             android:textColor="@color/md_theme_light_background"
             app:layout_constraintVertical_bias="1"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_classalias"></androidx.appcompat.widget.AppCompatButton>
+            app:layout_constraintTop_toBottomOf="@+id/tv_classalias"></com.google.android.material.button.MaterialButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
