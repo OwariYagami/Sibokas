@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.getClassroomByBuilding
 
 data class BuildingListResponse(
     val id: Int,

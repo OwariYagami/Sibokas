@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.getLogin
 
 data class UserResponse(
     val type: String,
