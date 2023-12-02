@@ -2,7 +2,6 @@ package com.overdevx.sibokas_xml.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.ClassroomList
+import com.overdevx.sibokas_xml.data.getClassroomByBuilding.ClassroomList
 import com.overdevx.sibokas_xml.ui.dashboard.BookingActivity
 
 class ClassroomAdapter(private val classroomList: List<ClassroomList>) :RecyclerView.Adapter<ClassroomAdapter.classroomViewHolder>() {

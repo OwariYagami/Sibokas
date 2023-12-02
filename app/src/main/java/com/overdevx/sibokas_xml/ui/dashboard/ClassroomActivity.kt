@@ -6,15 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.ClassroomAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
-import com.overdevx.sibokas_xml.data.BuildingListResponse
-import com.overdevx.sibokas_xml.data.BuildingWithClassroomsResponse
+import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingListResponse
+import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.databinding.ActivityClassroomBinding
 import retrofit2.Call
@@ -56,7 +53,7 @@ class ClassroomActivity : AppCompatActivity() {
                         response: Response<BuildingWithClassroomsResponse>
                     ) {
                        if(response.isSuccessful){
-                           val buildingWithClassroomsResponse:BuildingWithClassroomsResponse?=response.body()
+                           val buildingWithClassroomsResponse: BuildingWithClassroomsResponse?=response.body()
                            val buildingListResponse : BuildingListResponse?=buildingWithClassroomsResponse?.data
                            val classroomList = buildingListResponse?.classrooms ?: emptyList()
                            Log.d("API_CALL", "Response: $classroomList")

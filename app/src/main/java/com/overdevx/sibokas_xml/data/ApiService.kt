@@ -1,6 +1,9 @@
 package com.overdevx.sibokas_xml.data
 
 
+import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
+import com.overdevx.sibokas_xml.data.getLogin.UserResponse
+import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

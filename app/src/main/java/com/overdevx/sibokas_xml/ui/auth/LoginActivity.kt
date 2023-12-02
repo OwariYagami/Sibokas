@@ -1,18 +1,15 @@
 package com.overdevx.sibokas_xml.ui.auth
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.overdevx.sibokas_xml.MainActivity
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.TokenManager
-import com.overdevx.sibokas_xml.data.UserData
-import com.overdevx.sibokas_xml.data.UserResponse
+import com.overdevx.sibokas_xml.data.getLogin.UserResponse
 import com.overdevx.sibokas_xml.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback

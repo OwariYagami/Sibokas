@@ -3,6 +3,7 @@ package com.overdevx.sibokas_xml.ui.dashboard
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.overdevx.sibokas_xml.R
+import com.overdevx.sibokas_xml.data.ModalBottomSheet
 import com.overdevx.sibokas_xml.databinding.ActivityBookingBinding
 
 class BookingActivity : AppCompatActivity() {
@@ -27,6 +28,11 @@ class BookingActivity : AppCompatActivity() {
 
         binding.tvClassname.text="$classname"
         binding.tvClassalias.text="$classnamealias"
+
+        binding.btnPesan.setOnClickListener {
+            val modalBottomSheet = ModalBottomSheet()
+            modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+        }
 
     }
 }

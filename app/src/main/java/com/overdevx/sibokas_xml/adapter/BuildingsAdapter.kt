@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.Buildings
+import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.ui.dashboard.ClassroomActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
