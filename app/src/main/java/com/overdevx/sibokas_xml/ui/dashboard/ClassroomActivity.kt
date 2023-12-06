@@ -13,6 +13,8 @@ import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingListResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.Token
+import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
+import com.overdevx.sibokas_xml.data.getClassroomByBuilding.ClassroomList
 import com.overdevx.sibokas_xml.databinding.ActivityClassroomBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +24,7 @@ class ClassroomActivity : AppCompatActivity() {
     private lateinit var binding: ActivityClassroomBinding
     private lateinit var classroomAdapter: ClassroomAdapter
     private lateinit var classroomRecyclerView: RecyclerView
+    private var allClassroom: List<ClassroomList> = emptyList()
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,18 @@ class ClassroomActivity : AppCompatActivity() {
         classroomRecyclerView.layoutManager=LinearLayoutManager(this@ClassroomActivity)
         classroomRecyclerView.adapter=classroomAdapter
 
+        binding.searchView.setOnQueryTextListener(object :  androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterData(newText)
+                return true
+            }
+
+        })
+
         val buildingId = intent.getIntExtra("Building_id",0)
         val token = Token.getDecryptedToken(this@ClassroomActivity)
          if (buildingId != 0){
@@ -57,7 +72,8 @@ class ClassroomActivity : AppCompatActivity() {
                            val buildingListResponse : BuildingListResponse?=buildingWithClassroomsResponse?.data
                            val classroomList = buildingListResponse?.classrooms ?: emptyList()
                            Log.d("API_CALL", "Response: $classroomList")
-                           classroomAdapter =ClassroomAdapter(classroomList)
+                           allClassroom=classroomList
+                           classroomAdapter =ClassroomAdapter(allClassroom)
                             classroomRecyclerView.adapter=classroomAdapter
 
                        }
@@ -70,7 +86,22 @@ class ClassroomActivity : AppCompatActivity() {
                 })
         }
     }
+    private fun filterData(query: String?) {
+        // Jika query kosong, tampilkan semua data
+        if (query.isNullOrBlank()) {
+            classroomAdapter.updateData(allClassroom)
+            return
+        }
 
+        // Menggunakan filter untuk mencocokkan data yang sesuai dengan query
+        val filteredClassroom = allClassroom.filter { classroom ->
+            classroom.name.contains(query, ignoreCase = true)
+            // Tambahkan kondisi sesuai dengan atribut-atribut yang ingin Anda cari
+        }
+
+        // Update data di dalam adapter dengan hasil filter
+        classroomAdapter.updateData(filteredClassroom)
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

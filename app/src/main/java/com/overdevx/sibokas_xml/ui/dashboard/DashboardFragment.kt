@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +17,12 @@ import com.overdevx.sibokas_xml.adapter.BuildingsAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.Token
+import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.databinding.FragmentDashboardBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 
 class DashboardFragment : Fragment() {
@@ -30,6 +34,8 @@ class DashboardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var buildingRecyclerView: RecyclerView
+    private var allBuildings: List<Buildings> = emptyList()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,7 +52,38 @@ class DashboardFragment : Fragment() {
             textView.text = it
         }
         buildingRecyclerView = binding.recyclerHome
+
+        binding.searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterData(newText)
+                return true
+            }
+
+        })
         return root
+    }
+
+    private fun filterData(query: String?) {
+        // Jika query kosong, tampilkan semua data
+        if (query.isNullOrBlank()) {
+            buildingsAdapter.updateData(allBuildings)
+            return
+        }
+
+        // Menggunakan filter untuk mencocokkan data yang sesuai dengan query
+        val filteredBuildings = allBuildings.filter { building ->
+            building.name.contains(query, ignoreCase = true) ||
+                    building.building_code.contains(query, ignoreCase = true)
+            // Tambahkan kondisi sesuai dengan atribut-atribut yang ingin Anda cari
+        }
+
+        // Update data di dalam adapter dengan hasil filter
+        buildingsAdapter.updateData(filteredBuildings)
     }
 
     override fun onDestroyView() {
@@ -80,9 +117,9 @@ class DashboardFragment : Fragment() {
                     if (response.isSuccessful) {
                         val buildingResponse: BuildingResponse? = response.body()
                         val buildings = buildingResponse?.data ?: emptyList()
+                        allBuildings = buildings
 
-
-                        buildingsAdapter = BuildingsAdapter(buildings,requireContext())
+                        buildingsAdapter = BuildingsAdapter(allBuildings, requireContext())
                         buildingRecyclerView.adapter = buildingsAdapter
                     } else {
                         // Handle respons tidak sukses

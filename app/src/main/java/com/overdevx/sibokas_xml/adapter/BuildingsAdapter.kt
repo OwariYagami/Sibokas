@@ -13,7 +13,7 @@ import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.ui.dashboard.ClassroomActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
-class BuildingsAdapter(private val buildingList: List<Buildings>, requireContext: Context) :
+class BuildingsAdapter(private var buildingList: List<Buildings>, requireContext: Context) :
     RecyclerView.Adapter<BuildingsAdapter.buildingViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -50,6 +50,16 @@ class BuildingsAdapter(private val buildingList: List<Buildings>, requireContext
         val buildingsImage: CircleImageView = itemView.findViewById(R.id.iv_buildingImage)
         val context: Context = itemView.context
     }
+
+    fun updateData(newData: List<Buildings>) {
+        buildingList = newData
+        notifyDataSetChanged()
+    }
+
+    fun getData(): List<Buildings> {
+        return buildingList
+    }
+
 
 
 }

@@ -9,10 +9,11 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.overdevx.sibokas_xml.R
+import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.ClassroomList
 import com.overdevx.sibokas_xml.ui.dashboard.BookingActivity
 
-class ClassroomAdapter(private val classroomList: List<ClassroomList>) :RecyclerView.Adapter<ClassroomAdapter.classroomViewHolder>() {
+class ClassroomAdapter(private var classroomList: List<ClassroomList>) :RecyclerView.Adapter<ClassroomAdapter.classroomViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -57,4 +58,10 @@ class ClassroomAdapter(private val classroomList: List<ClassroomList>) :Recycler
     override fun getItemCount(): Int {
         return classroomList.size
     }
+
+    fun updateData(newData: List<ClassroomList>) {
+        classroomList = newData
+        notifyDataSetChanged()
+    }
+
 }

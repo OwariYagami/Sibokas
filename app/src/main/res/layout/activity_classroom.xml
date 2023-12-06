@@ -44,14 +44,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/search_bar"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            style="@style/Widget.Material3.SearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search"
+            android:background="@drawable/bg_search"
+            app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_headerclassroom" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_headerclassroom"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="Search here ..." />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_classroom"
@@ -60,7 +64,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_bar"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
             tools:listitem="@layout/item_classroomlist"
             android:paddingBottom="@dimen/_100sdp"
            ></androidx.recyclerview.widget.RecyclerView>
