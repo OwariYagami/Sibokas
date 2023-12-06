@@ -43,6 +43,7 @@ class ClassroomAdapter(private val classroomList: List<ClassroomList>) :Recycler
             val intent = Intent(holder.context,BookingActivity::class.java)
             intent.putExtra("class_name",currentClassroom.name)
             intent.putExtra("class_namealias",currentClassroom.name_alias)
+            intent.putExtra("class_id",currentClassroom.id)
             holder.context.startActivity(intent)
         }
 

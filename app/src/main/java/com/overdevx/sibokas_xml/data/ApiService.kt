@@ -4,6 +4,7 @@ package com.overdevx.sibokas_xml.data
 import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.getLogin.UserResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
+import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -27,4 +28,9 @@ interface ApiService {
     fun getClassroomByBuilding(@Header("Authorization") token: String,
                                @Path("buildingId") buildingId: Int
     ):Call<BuildingWithClassroomsResponse>
+
+    @GET("classroom-with-details/{classroomId}")
+    fun getClassroomDetailsById(@Header("Authorization") token: String,
+                                @Path("classroomId") classroomId: Int
+    ):Call<ClassroomDetails>
 }

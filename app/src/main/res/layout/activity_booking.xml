@@ -42,6 +42,8 @@
             app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_detail"
+            android:layout_margin="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,22 +81,41 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_classname"></TextView>
 
+                <TextView
+                    android:id="@+id/tv_titleJadwal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_smbld"
+                    android:text="Jadwal Hari Ini :"
+                    android:textColor="@color/md_theme_light_scrim"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_classalias"></TextView>
+
+                <ListView
+                    android:id="@+id/listSchedule"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_titleJadwal"></ListView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_pesan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_smbld"
             android:text="Pesan"
-            android:id="@+id/btn_pesan"
-            android:textColor="@color/md_theme_light_background"
-            app:layout_constraintVertical_bias="1"
             android:textAllCaps="false"
+            android:textColor="@color/md_theme_light_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_classalias"></com.google.android.material.button.MaterialButton>
+            app:layout_constraintVertical_bias="1"></com.google.android.material.button.MaterialButton>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

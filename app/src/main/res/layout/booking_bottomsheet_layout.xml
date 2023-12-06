@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_detail"
+            android:id="@+id/tv_detail_bottomsheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -62,7 +62,7 @@
             android:backgroundTint="@color/md_theme_light_primary"
             android:text="Ya"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail"></com.google.android.material.button.MaterialButton>
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottomsheet"></com.google.android.material.button.MaterialButton>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_tdk"
@@ -73,7 +73,7 @@
             android:textColor="@color/md_theme_light_background"
             android:text="Tidak"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail"></com.google.android.material.button.MaterialButton>
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottomsheet"></com.google.android.material.button.MaterialButton>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
