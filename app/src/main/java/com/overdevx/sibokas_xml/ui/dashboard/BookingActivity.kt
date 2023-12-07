@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.overdevx.sibokas_xml.R
+import com.overdevx.sibokas_xml.adapter.ClassroomAdapter
 import com.overdevx.sibokas_xml.adapter.ScheduleAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.ModalBottomSheet
@@ -24,6 +27,8 @@ import java.util.Objects
 class BookingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookingBinding
     private lateinit var bottomBinding: BookingBottomsheetLayoutBinding
+    private lateinit var scheduleAdapter: ScheduleAdapter
+    private lateinit var scheduleRecyclerView: RecyclerView
     private var startSch:String=""
     private var endSch:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +45,11 @@ class BookingActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+        scheduleRecyclerView=binding.recyclerSchedules
+
+        scheduleAdapter= ScheduleAdapter(this@BookingActivity,emptyList())
+        scheduleRecyclerView.layoutManager= LinearLayoutManager(this@BookingActivity)
+        scheduleRecyclerView.adapter=scheduleAdapter
 
         val classname = intent.getStringExtra("class_name")
         val classnamealias = intent.getStringExtra("class_namealias")
@@ -66,13 +76,13 @@ class BookingActivity : AppCompatActivity() {
                                  val startTimeInMinutes = convertTimeToMinutes(it.start_time)
                                  val endTimeInMinutes = convertTimeToMinutes(it.end_time)
 
-                                it.day_of_week == currentDayOfWeek && startTimeInMinutes <= currentTimeInMinutes && endTimeInMinutes >= currentTimeInMinutes
+                                //it.day_of_week == currentDayOfWeek && startTimeInMinutes <= currentTimeInMinutes && endTimeInMinutes >= currentTimeInMinutes
+                                it.day_of_week == currentDayOfWeek - 1
                             }
                             Log.d("DAYOFWEEK","$currentDayOfWeek")
-                            val listView = binding.listSchedule
                            filterSchedule?.let {
-                               val scheduleAdapter = ScheduleAdapter(this@BookingActivity,it)
-                               listView.adapter=scheduleAdapter
+                               scheduleAdapter =ScheduleAdapter(this@BookingActivity,filterSchedule)
+                               scheduleRecyclerView.adapter=scheduleAdapter
                            }
                             filterSchedule?.forEach{schedule ->
                                 startSch=schedule.start_time
@@ -100,8 +110,15 @@ class BookingActivity : AppCompatActivity() {
             Log.d("TEXT","Booking Kelas $classname dari pukul $startSch - $endSch WIB ?")
             val modalBottomSheet=ModalBottomSheet()
             modalBottomSheet.scheduleText="Booking Kelas $classname dari pukul $startSch - $endSch WIB ?"
+            modalBottomSheet.classroom_id=classid
+
+
             modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+            if(modalBottomSheet.status!=""){
+                modalBottomSheet.dismiss()
+            }
         }
+
 
     }
     fun convertTimeToMinutes(time: String): Int {

@@ -94,17 +94,18 @@
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintTop_toBottomOf="@+id/tv_classalias"></TextView>
 
-                <ListView
-                    android:id="@+id/listSchedule"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_titleJadwal"></ListView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                     </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_schedules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_schedules"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_detail"></androidx.recyclerview.widget.RecyclerView>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_pesan"
             android:layout_width="match_parent"

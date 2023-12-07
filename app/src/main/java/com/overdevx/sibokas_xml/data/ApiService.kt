@@ -2,6 +2,7 @@ package com.overdevx.sibokas_xml.data
 
 
 import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
+import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
 import com.overdevx.sibokas_xml.data.getLogin.UserResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
@@ -33,4 +34,11 @@ interface ApiService {
     fun getClassroomDetailsById(@Header("Authorization") token: String,
                                 @Path("classroomId") classroomId: Int
     ):Call<ClassroomDetails>
+
+    @FormUrlEncoded
+    @POST("check-in")
+    fun checkIn(
+        @Header("Authorization") token: String,
+        @Field("classroom_id") classroomId : Int
+    ): Call<CheckInResponse>
 }
