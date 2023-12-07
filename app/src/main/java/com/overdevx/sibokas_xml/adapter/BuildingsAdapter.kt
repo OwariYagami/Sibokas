@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.card.MaterialCardView
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.ui.dashboard.ClassroomActivity
@@ -27,7 +28,7 @@ class BuildingsAdapter(private var buildingList: List<Buildings>, requireContext
     override fun onBindViewHolder(holder: BuildingsAdapter.buildingViewHolder, position: Int) {
         val currentBuilding = buildingList[position]
         holder.buildingsCode.text = currentBuilding.building_code + " ( ${currentBuilding.name} )"
-        holder.buildingsCode.setOnClickListener {
+        holder.card.setOnClickListener {
             val intent = Intent(holder.context, ClassroomActivity::class.java)
             intent.putExtra("Building_id", currentBuilding.id)
             holder.context.startActivity(intent)
@@ -48,6 +49,7 @@ class BuildingsAdapter(private var buildingList: List<Buildings>, requireContext
     class buildingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val buildingsCode: TextView = itemView.findViewById(R.id.tv_buildingName)
         val buildingsImage: CircleImageView = itemView.findViewById(R.id.iv_buildingImage)
+        val card: MaterialCardView = itemView.findViewById(R.id.card_building)
         val context: Context = itemView.context
     }
 

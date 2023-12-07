@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.ClassroomList
@@ -26,6 +27,7 @@ class ClassroomAdapter(private var classroomList: List<ClassroomList>) :Recycler
        val classname:TextView = itemView.findViewById(R.id.tv_classroomname)
        val classalias:TextView = itemView.findViewById(R.id.tv_classroomalias)
        val classstatus:RelativeLayout = itemView.findViewById(R.id.rl_status)
+       val card:MaterialCardView = itemView.findViewById(R.id.card_classroom)
         val context:Context = itemView.context
     }
 
@@ -40,7 +42,7 @@ class ClassroomAdapter(private var classroomList: List<ClassroomList>) :Recycler
 
         }
 
-        holder.classname.setOnClickListener {
+        holder.card.setOnClickListener {
             val intent = Intent(holder.context,BookingActivity::class.java)
             intent.putExtra("class_name",currentClassroom.name)
             intent.putExtra("class_namealias",currentClassroom.name_alias)
