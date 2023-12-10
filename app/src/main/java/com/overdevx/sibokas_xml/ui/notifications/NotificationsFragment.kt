@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.overdevx.sibokas_xml.data.UploadModalBottomSheet
 import com.overdevx.sibokas_xml.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment() {
@@ -28,9 +29,14 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textDashboard
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+        }
+        binding.cvImage.setOnClickListener{
+            val uploadModalBottomSheet=UploadModalBottomSheet()
+            uploadModalBottomSheet.show(requireActivity().supportFragmentManager,UploadModalBottomSheet.TAG)
+
         }
         return root
     }
