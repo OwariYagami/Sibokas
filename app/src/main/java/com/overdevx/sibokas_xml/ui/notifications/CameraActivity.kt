@@ -40,6 +40,7 @@ import java.util.Locale
 typealias LumaListener = (luma: Double) -> Unit
 
 class CameraActivity : AppCompatActivity() {
+
     private var imageCapture: ImageCapture? = null
     private lateinit var binding: ActivityCameraBinding
     private lateinit var cameraExecutor: ExecutorService
@@ -99,13 +100,30 @@ class CameraActivity : AppCompatActivity() {
 
                 override fun
                         onImageSaved(output: ImageCapture.OutputFileResults){
+                    val imageUri = output.savedUri
+
+                    // Pass the imageUri to the fragment
+                    val fragment = NotificationsFragment()
+                    val bundle = Bundle()
+                    bundle.putString("imageUri", imageUri.toString())
+                    fragment.arguments = bundle
+
+                    // Use FragmentManager to replace the current fragment with the new one
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment_activity_main, fragment)
+                        .addToBackStack(null)
+                        .commit()
                     val msg = "Photo capture succeeded: ${output.savedUri}"
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
                 }
+
+
             }
         )
     }
+
+
 
     private fun captureVideo() {}
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.overdevx.sibokas_xml.adapter.BuildingsAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
+import com.overdevx.sibokas_xml.data.LoadingDialog
 import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
@@ -29,7 +30,7 @@ class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private lateinit var buildingsAdapter: BuildingsAdapter
-
+    private lateinit var loadingDialog: LoadingDialog
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -46,7 +47,7 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        loadingDialog= LoadingDialog(requireContext())
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
@@ -108,6 +109,7 @@ class DashboardFragment : Fragment() {
     private fun getBuildings() {
         val token = Token.getDecryptedToken(requireContext())
         val apiservice = ApiClient.retrofit
+        loadingDialog.show()
         apiservice.getAllBuildings("Bearer $token")
             .enqueue(object : Callback<BuildingResponse> {
                 override fun onResponse(
@@ -121,13 +123,15 @@ class DashboardFragment : Fragment() {
 
                         buildingsAdapter = BuildingsAdapter(allBuildings, requireContext())
                         buildingRecyclerView.adapter = buildingsAdapter
+                        loadingDialog.dismiss()
                     } else {
-                        // Handle respons tidak sukses
+                        loadingDialog.dismiss()
                     }
                 }
 
                 override fun onFailure(call: Call<BuildingResponse>, t: Throwable) {
                     Log.e("API_CALL", "Error: ${t.message}")
+                    loadingDialog.dismiss()
                 }
 
 

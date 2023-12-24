@@ -7,11 +7,14 @@ import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.ClassroomAdapter
 import com.overdevx.sibokas_xml.adapter.ScheduleAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
+import com.overdevx.sibokas_xml.data.LoadingDialog
 import com.overdevx.sibokas_xml.data.ModalBottomSheet
+import com.overdevx.sibokas_xml.data.SuccessDialog
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
 import com.overdevx.sibokas_xml.data.getDetailClassroom.Data
@@ -29,6 +32,8 @@ class BookingActivity : AppCompatActivity() {
     private lateinit var bottomBinding: BookingBottomsheetLayoutBinding
     private lateinit var scheduleAdapter: ScheduleAdapter
     private lateinit var scheduleRecyclerView: RecyclerView
+    private lateinit var loadingDialog: LoadingDialog
+    private lateinit var successDialog: SuccessDialog
     private var startSch:String=""
     private var endSch:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +45,8 @@ class BookingActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
+        loadingDialog= LoadingDialog(this@BookingActivity)
+        successDialog= SuccessDialog(this@BookingActivity)
         // Menetapkan fungsi kembali saat tombol kembali ditekan
         toolbar.setNavigationOnClickListener {
             onBackPressed()
@@ -56,6 +62,7 @@ class BookingActivity : AppCompatActivity() {
         val classid = intent.getIntExtra("class_id",0)
         val token = Token.getDecryptedToken(this@BookingActivity)
         if(classid != 0){
+            loadingDialog.show()
             ApiClient.retrofit.getClassroomDetailsById("Bearer $token",classid)
                 .enqueue(object : Callback<ClassroomDetails>{
                     override fun onResponse(
@@ -71,7 +78,8 @@ class BookingActivity : AppCompatActivity() {
                             val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
                             val currentMinute = currentTime.get(Calendar.MINUTE)
                             val currentTimeInMinutes = (currentHour * 60) + currentMinute
-
+                            val pic = dataResponse?.pic_room?.name
+                            binding.tvPic.text="$pic"
                             val filterSchedule: List<Schedule>? = schedule?.filter {
                                  val startTimeInMinutes = convertTimeToMinutes(it.start_time)
                                  val endTimeInMinutes = convertTimeToMinutes(it.end_time)
@@ -88,6 +96,7 @@ class BookingActivity : AppCompatActivity() {
                                 startSch=schedule.start_time
                                 endSch=schedule.end_time
                             }
+                            loadingDialog.dismiss()
                             schedule?.let{
                                 for (schedule in it) {
                                     Log.d("Schedule", "Day: ${schedule.day_of_week}, Start: ${schedule.start_time}, End: ${schedule.end_time}")
@@ -97,6 +106,7 @@ class BookingActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<ClassroomDetails>, t: Throwable) {
+                        loadingDialog.dismiss()
                         TODO("Not yet implemented")
                     }
 
@@ -104,8 +114,11 @@ class BookingActivity : AppCompatActivity() {
         }
         //bottomBinding.tvDetailBottomsheet.text="Booking Kelas $classname dari pukul $startSch - $endSch WIB ?"
 
-        binding.tvClassname.text="$classname"
-        binding.tvClassalias.text="$classnamealias"
+        binding.tvName.text="$classname"
+        binding.tvAlias.text="$classnamealias"
+        binding.tvAlias.setOnClickListener {
+          successDialog.show()
+        }
         binding.btnPesan.setOnClickListener {
             Log.d("TEXT","Booking Kelas $classname dari pukul $startSch - $endSch WIB ?")
             val modalBottomSheet=ModalBottomSheet()

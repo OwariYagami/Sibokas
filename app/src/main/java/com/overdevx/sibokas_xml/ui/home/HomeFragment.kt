@@ -1,5 +1,6 @@
 package com.overdevx.sibokas_xml.ui.home
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,14 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.HistoryAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
+import com.overdevx.sibokas_xml.data.LoadingDialog
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.getHistory.Classroom
 import com.overdevx.sibokas_xml.data.getHistory.Data
 import com.overdevx.sibokas_xml.data.getHistory.HistoryResponse
 import com.overdevx.sibokas_xml.databinding.FragmentHomeBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +44,8 @@ class HomeFragment : Fragment() {
     private lateinit var historyrRecyclerView: RecyclerView
     private lateinit var historyAdapter: HistoryAdapter
     private var allHistory: List<Data> = emptyList()
+    private lateinit var loadingDialog: LoadingDialog
+    private val coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,7 +60,7 @@ class HomeFragment : Fragment() {
 
         historyrRecyclerView = binding.recyclerHistory
 
-
+        loadingDialog = LoadingDialog(requireContext())
 
         return root
     }
@@ -67,15 +76,14 @@ class HomeFragment : Fragment() {
 
         val checkedFilter = binding.chipGroup.checkedChipId
         binding.chipGroup.setOnCheckedStateChangeListener { group, checkedFilter ->
-
-            if (group.getTextChipChecked() == "All") {
-                filterData(null)
-            } else if (group.getTextChipChecked() == "Today") {
-                filterData(LocalDate.now())
-            } else if (group.getTextChipChecked() == "Yesterday") {
-                filterData(LocalDate.now().minusDays(1))
+            when (group.getTextChipChecked()) {
+                "All" -> filterData(null)
+                "Today" -> filterData(LocalDate.now())
+                "Yesterday" -> filterData(LocalDate.now().minusDays(1))
+                "On Booked" -> filterOnBooked()
             }
         }
+
 
     }
 
@@ -88,27 +96,53 @@ class HomeFragment : Fragment() {
     private fun filterData(selectedDate: LocalDate?) {
         // Jika query kosong, tampilkan semua data
         if (selectedDate == null) {
+            binding.tvNull.visibility = View.INVISIBLE
+            binding.tvTitleEmpty.visibility = View.INVISIBLE
             historyAdapter.updateData(allHistory)
             return
         }
-        // Menggunakan filter untuk mencocokkan data yang sesuai dengan query
+
+        // Filter data yang memiliki tanggal sama dengan selectedDate dan status == 1
         val filteredHistory = allHistory.filter { history ->
             val historyDate = LocalDate.parse(history.created_at.substring(0, 10))
-
-            // Filter data yang memiliki tanggal sama dengan selectedDate
-            historyDate == selectedDate
+            historyDate == selectedDate && history.status == 2
         }
-        if(filteredHistory.isEmpty()){
-            binding.tvNull.visibility=View.VISIBLE
 
-        }else{
-            binding.tvNull.visibility=View.INVISIBLE
+        if (filteredHistory.isEmpty()) {
+            binding.tvNull.visibility = View.VISIBLE
+            binding.tvTitleEmpty.visibility = View.VISIBLE
+            binding.tvNull.playAnimation()
+        } else {
+            binding.tvNull.visibility = View.INVISIBLE
+            binding.tvTitleEmpty.visibility = View.INVISIBLE
+            binding.tvNull.pauseAnimation()
         }
+
         // Update data di dalam adapter dengan hasil filter
         historyAdapter.updateData(filteredHistory)
     }
 
+    private fun filterOnBooked() {
+        // Filter data yang status == 1 (On Booked)
+        val onBookedHistory = allHistory.filter { history ->
+            history.status == 1
+        }
+
+        if (onBookedHistory.isEmpty()) {
+            binding.tvNull.visibility = View.VISIBLE
+            binding.tvTitleEmpty.visibility = View.VISIBLE
+            binding.tvNull.playAnimation()
+        } else {
+            binding.tvNull.visibility = View.INVISIBLE
+            binding.tvTitleEmpty.visibility = View.INVISIBLE
+            binding.tvNull.pauseAnimation()
+        }
+
+        // Update data di dalam adapter dengan hasil filter
+        historyAdapter.updateData(onBookedHistory)
+    }
     private fun getHistory() {
+        loadingDialog.show()
         val token = Token.getDecryptedToken(requireContext())
         ApiClient.retrofit.getHistory("Bearer $token").enqueue(object : Callback<HistoryResponse> {
             override fun onResponse(
@@ -118,18 +152,22 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful) {
                     val historyResponse = response?.body()
                     val historyData = historyResponse?.data ?: emptyList()
-                    allHistory = historyData
+                    allHistory = historyData.sortedBy { it.created_at }
 
                     historyAdapter = HistoryAdapter(allHistory, requireContext())
                     historyrRecyclerView.adapter = historyAdapter
 
+                    loadingDialog.dismiss()
 
 
+                }else{
+                    loadingDialog.dismiss()
                 }
             }
 
             override fun onFailure(call: Call<HistoryResponse>, t: Throwable) {
                 Log.e("API_CALL", "Error: ${t.message}")
+                loadingDialog.dismiss()
             }
 
         })

@@ -8,12 +8,17 @@ import com.overdevx.sibokas_xml.data.getLogin.UserResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
 import com.overdevx.sibokas_xml.data.getHistory.HistoryResponse
+import com.overdevx.sibokas_xml.data.getReport.UploadResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -54,4 +59,14 @@ interface ApiService {
 
     @GET("booking-history-student")
     fun getHistory(@Header("Authorization") token: String): Call<HistoryResponse>
+
+    @Multipart
+    @POST("report")
+    fun report(
+        @Header("Authorization") token: String,
+        @Part("title") title: RequestBody,
+        @Part("description") desc: RequestBody,
+        @Part("classroom_id") classId: RequestBody,
+        @Part photo: MultipartBody.Part
+    ): Call<UploadResponse>
 }

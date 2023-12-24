@@ -1,89 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_classroom"
-        android:clickable="true"
         style="?attr/materialCardViewFilledStyle"
-        app:cardBackgroundColor="@color/md_theme_light_onPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/md_theme_light_onPrimary"
         app:cardElevation="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_status"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="match_parent"
+        android:background="#81C784">
+
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/tv_classroomname"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp">
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="SB II/07"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"></TextView>
 
-            <TextView
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintVertical_bias="0"
-                android:id="@+id/tv_classroomname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_smbld"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:text="SB II/07"
-                android:textColor="@color/md_theme_light_scrim"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
 
-            <RelativeLayout
-                android:id="@+id/rl_status"
-                android:padding="@dimen/_2sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/bg_status"
-                android:layout_marginLeft="@dimen/_5sdp"
-                app:layout_constraintHorizontal_bias="0"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_classroomname"
-                app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tv_classroomalias"
+            android:layout_width="@dimen/_150sdp"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_rglr"
+            android:text="Lab Komputeralkjalsdjaklsjdkalsjdklajdklajdlkaj"
+            android:textColor="@color/md_theme_light_tertiary"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_classroomname"></TextView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="Terpakai"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/md_theme_light_background"
-                    android:textSize="@dimen/_10sdp"></TextView>
-            </RelativeLayout>
-            <TextView
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:id="@+id/tv_classroomalias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_smbld"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:text="Lab Komputer"
-                android:textColor="@color/md_theme_light_inversePrimary"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_classroomname"></TextView>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_classroomphoto"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:src="@drawable/building"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_classroomphoto"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:src="@drawable/building"
-                android:layout_marginRight="@dimen/_5sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

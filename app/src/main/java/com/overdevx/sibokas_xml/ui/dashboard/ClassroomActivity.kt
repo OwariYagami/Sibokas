@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.ClassroomAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingListResponse
@@ -17,6 +18,7 @@ import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.ClassroomList
 import com.overdevx.sibokas_xml.databinding.ActivityClassroomBinding
+import com.overdevx.sibokas_xml.ui.notifications.NotificationsFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +33,14 @@ class ClassroomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityClassroomBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+binding.tvHeaderclassroom.setOnClickListener {
+    val fragment = DashboardFragment()
+    // Use FragmentManager to replace the current fragment with the new one
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.nav_host_fragment_activity_main, fragment)
+        .addToBackStack(null)
+        .commit()
+}
       val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

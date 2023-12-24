@@ -22,7 +22,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/md_theme_light_background"
+        android:background="#F1F1F1"
         android:padding="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_50sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,56 +30,139 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:layout_constraintVertical_bias="0"
-            android:id="@+id/iv_classroomphoto"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:src="@drawable/building"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
-
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_detail"
-            android:layout_margin="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            style="@style/Widget.Material3.CardView.Filled"
+            app:cardBackgroundColor="@color/md_theme_light_background"
+            app:cardCornerRadius="@dimen/_16sdp"
+            android:id="@+id/cl_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardElevation="@dimen/_5sdp"
-            style="?attr/materialCardViewElevatedStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_classroomphoto">
+            app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp">
+                android:padding="@dimen/_16sdp">
 
-                <TextView
-                    android:id="@+id/tv_classname"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView3"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/_14sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/iv_classroomphoto"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/building"></ImageView>
+                </com.google.android.material.card.MaterialCardView>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide_centerline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_smbld"
-                    android:text="SB1-03"
-                    android:textColor="@color/md_theme_light_scrim"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent=".50"
+                    ></androidx.constraintlayout.widget.Guideline>
 
-                <TextView
-                    android:id="@+id/tv_classalias"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_smbld"
-                    android:text="Lab Pemograman"
-                    android:textColor="@color/md_theme_light_primary"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_classname"></TextView>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guide_centerline"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_name_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_smbld"
+                        android:text="Name"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_rglr"
+                        android:text="SB II/07"
+                        android:textColor="@color/md_theme_light_tertiary"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name_header"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_alias_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_smbld"
+                        android:text="Name Alias"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_alias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_rglr"
+                        android:text="Lab Pemrograman"
+                        android:textColor="@color/md_theme_light_tertiary"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_alias_header"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_pic_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_smbld"
+                        android:text="Helper"
+                        android:textColor="@color/md_theme_light_scrim"
+                        android:textSize="@dimen/_14sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_alias"></TextView>
+
+                    <TextView
+                        android:id="@+id/tv_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_rglr"
+                        android:text="Yanto "
+                        android:textColor="@color/md_theme_light_tertiary"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_pic_header"></TextView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_detail"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            style="@style/Widget.Material3.CardView.Filled"
+            app:cardBackgroundColor="@color/md_theme_light_background"
+            app:cardCornerRadius="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_header">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_16sdp">
 
                 <TextView
                     android:id="@+id/tv_titleJadwal"
@@ -90,22 +173,22 @@
                     android:textColor="@color/md_theme_light_scrim"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_classalias"></TextView>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_schedules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_titleJadwal"
+                    tools:listitem="@layout/item_schedules"></androidx.recyclerview.widget.RecyclerView>
 
-                     </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_schedules"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_schedules"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cv_detail"></androidx.recyclerview.widget.RecyclerView>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_pesan"
             android:layout_width="match_parent"

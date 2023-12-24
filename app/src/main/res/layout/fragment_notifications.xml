@@ -8,7 +8,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-
+    android:id="@+id/sc"
     tools:context=".ui.notifications.NotificationsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,14 +74,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_headerhome">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/menu"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_8sdp"
-                    android:fontFamily="@font/poppins_rglr"
-                    android:text="Laporan SB 2/1"
-                    android:textSize="@dimen/_12sdp"></TextView>
+                    android:hint="Kelas">
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -152,17 +159,24 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_200sdp"
                     android:padding="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_fototitle">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/iv_placeholder"
-                        android:layout_width="@dimen/_150sdp"
+                    <ImageView
+                        android:id="@+id/iv_report"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/_150sdp"
                         android:src="@drawable/image_report"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/iv_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"></com.google.android.material.imageview.ShapeableImageView>
@@ -178,7 +192,7 @@
                         android:textSize="@dimen/_14sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/iv_placeholder"></TextView>
+                        app:layout_constraintTop_toBottomOf="@+id/iv_report"></TextView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

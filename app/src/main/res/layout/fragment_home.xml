@@ -51,11 +51,11 @@
             android:id="@+id/chip_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_headerhome">
+            app:layout_constraintTop_toBottomOf="@+id/tv_headerhome"
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_all"
@@ -64,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="All" />
+
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_today"
                 style="@style/Widget.Material3.Chip.Filter"
@@ -71,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:text="Today" />
+
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_yesterday"
                 style="@style/Widget.Material3.Chip.Filter"
@@ -78,13 +80,22 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:text="Yesterday" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_onBooked"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="On Booked" />
         </com.google.android.material.chip.ChipGroup>
 
         <RelativeLayout
 
-            android:layout_marginTop="@dimen/_80sdp"
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_80sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -92,19 +103,19 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Material3.CardView.Filled"
-                app:cardBackgroundColor="@color/md_theme_light_onPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_60sdp"
+                app:cardBackgroundColor="@color/md_theme_light_onPrimary"
                 app:cardElevation="@dimen/_5sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0">
-
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_history"
@@ -118,17 +129,32 @@
 
             </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
+
         <TextView
-            android:id="@+id/tv_null"
-            android:visibility="invisible"
+            android:id="@+id/tv_title_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_smbld"
-            android:text="Tidak ada data untuk kategori ini!!"
+            android:text="Oops Tidak Ada Data Yang Ditampilkan !!"
+            android:textAlignment="center"
             android:textSize="@dimen/_16sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/tv_null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8"></TextView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/tv_null"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chip_group"></TextView>
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/empty"></com.airbnb.lottie.LottieAnimationView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
