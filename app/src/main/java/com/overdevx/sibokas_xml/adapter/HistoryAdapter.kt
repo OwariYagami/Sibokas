@@ -11,10 +11,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.overdevx.sibokas_xml.R
+import com.overdevx.sibokas_xml.data.CheckoutModalBottomSheet
+import com.overdevx.sibokas_xml.data.ModalBottomSheet
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.data.getHistory.Data
 import com.overdevx.sibokas_xml.ui.dashboard.ClassroomActivity
@@ -23,7 +26,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class HistoryAdapter(private var historyList: List<Data>, requireContext: Context) :
+class HistoryAdapter(private var historyList: List<Data>, private val fragmentManager: FragmentManager, requireContext: Context) :
     RecyclerView.Adapter<HistoryAdapter.historyViewHolder>() {
     private var filteredHistory: List<Data> = historyList
     init {
@@ -66,6 +69,11 @@ class HistoryAdapter(private var historyList: List<Data>, requireContext: Contex
         holder.card.setOnClickListener {
             if (currentHistory.status == 1) {
                 Toast.makeText(holder.context, "Klik", Toast.LENGTH_SHORT).show()
+                val modalBottomSheet= CheckoutModalBottomSheet()
+                modalBottomSheet.classname="CheckOut dari kelas ${currentHistory.classroom.name} sekarang?"
+                modalBottomSheet.classroom_id=currentHistory.classroom.id
+                modalBottomSheet.booking_id=currentHistory.id
+                modalBottomSheet.show(fragmentManager, ModalBottomSheet.TAG)
             }
         }
 

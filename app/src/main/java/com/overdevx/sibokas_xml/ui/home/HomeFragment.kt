@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        historyAdapter = HistoryAdapter(emptyList(), requireContext())
+        historyAdapter = HistoryAdapter(emptyList(), requireActivity().supportFragmentManager, requireContext())
         historyrRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         historyrRecyclerView.adapter = historyAdapter
 
@@ -154,7 +154,7 @@ class HomeFragment : Fragment() {
                     val historyData = historyResponse?.data ?: emptyList()
                     allHistory = historyData.sortedBy { it.created_at }
 
-                    historyAdapter = HistoryAdapter(allHistory, requireContext())
+                    historyAdapter = HistoryAdapter(allHistory,requireActivity().supportFragmentManager, requireContext())
                     historyrRecyclerView.adapter = historyAdapter
 
                     loadingDialog.dismiss()

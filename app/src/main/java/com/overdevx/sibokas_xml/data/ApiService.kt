@@ -4,6 +4,7 @@ package com.overdevx.sibokas_xml.data
 import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
 import com.overdevx.sibokas_xml.data.getCheckout.CheckOutResponse
+import com.overdevx.sibokas_xml.data.getCheckout.CheckoutRequest
 import com.overdevx.sibokas_xml.data.getLogin.UserResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
@@ -12,6 +13,7 @@ import com.overdevx.sibokas_xml.data.getReport.UploadResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -49,12 +51,12 @@ interface ApiService {
         @Field("classroom_id") classroomId : Int
     ): Call<CheckInResponse>
 
-    @FormUrlEncoded
-    @POST("check-out")
+
+    @POST("check-out/{idBooking}")
     fun checkOut(
         @Header("Authorization") token : String,
-        @Field("_method") method:String,
-        @Field("classroom_id") classroomId: Int
+        @Path("idBooking") idBooking: Int,
+        @Body request: CheckoutRequest
     ): Call<CheckOutResponse>
 
     @GET("booking-history-student")
