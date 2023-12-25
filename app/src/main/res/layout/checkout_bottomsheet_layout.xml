@@ -36,17 +36,20 @@
             android:textSize="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"></com.google.android.material.textview.MaterialTextView>
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="Checkout kelas SB I/03 sekarang?"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/md_theme_light_scrim"
+            android:fontFamily="@font/poppins_rglr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"></TextView>
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
@@ -56,20 +59,21 @@
                 ></androidx.constraintlayout.widget.Guideline>
 
         <ImageView
+            android:layout_marginTop="@dimen/_10sdp"
             android:id="@+id/imageView2"
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            android:src="@drawable/bg_checkout"
+            android:src="@drawable/ic_checkout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ImageView>
+            app:layout_constraintTop_toBottomOf="@id/tv_title"></ImageView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_ok"
             android:textColor="@color/md_theme_light_background"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_40sdp"
             android:backgroundTint="@color/md_theme_light_primary"
             android:fontFamily="@font/poppins_rglr"
             android:text="Checkout"

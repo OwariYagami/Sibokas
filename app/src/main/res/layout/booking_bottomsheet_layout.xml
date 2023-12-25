@@ -19,19 +19,30 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottomSheetDragHandleView">
 
+        <ImageView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/ic_checkin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"></ImageView>
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_smbld"
-            android:text="Konfirmasi Booking"
+            android:text="Booking Kelas"
             android:textColor="@color/md_theme_light_onBackground"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,37 +53,27 @@
             android:id="@+id/tv_detail_bottomsheet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/nunito_medium"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_rglr"
             android:text="Booking Kelas GKT-08 dari pukul 07.00 - 10.00 WIB ?"
+            android:textAlignment="center"
             android:textColor="@color/md_theme_light_onBackground"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"></com.google.android.material.textview.MaterialTextView>
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"></com.google.android.material.textview.MaterialTextView>
 
         <com.google.android.material.button.MaterialButton
+            android:layout_marginTop="@dimen/_10sdp"
             android:id="@+id/btn_ya"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textColor="@color/md_theme_light_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
             android:backgroundTint="@color/md_theme_light_primary"
-            android:text="Ya"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottomsheet"></com.google.android.material.button.MaterialButton>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_tdk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:backgroundTint="@color/md_theme_light_error"
+            android:text="Booking"
             android:textColor="@color/md_theme_light_background"
-            android:text="Tidak"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_bottomsheet"></com.google.android.material.button.MaterialButton>
 
 

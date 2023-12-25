@@ -34,9 +34,10 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.checkout_bottomsheet_layout, container, false)
-        view.findViewById<TextView>(R.id.textView2).text = classname
+        view.findViewById<TextView>(R.id.textView2).text = "CheckOut dari kelas $classname sekarang ?"
         loadingDialog= LoadingDialog(requireContext())
         successDialog= SuccessDialog(requireContext())
+        successDialog.desc="Berhasil Checkout dari Kelas $classname"
         val token = Token.getDecryptedToken(requireContext())
         Log.d("CEK","$classroom_id : $token : $booking_id")
         view.findViewById<Button>(R.id.btn_ok).setOnClickListener {

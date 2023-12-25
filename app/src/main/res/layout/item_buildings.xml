@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
 
     android:layout_height="wrap_content">
 
@@ -11,43 +11,73 @@
         style="?attr/materialCardViewFilledStyle"
         android:clickable="true"
         app:cardBackgroundColor="@color/md_theme_light_onPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_150sdp"
         android:layout_margin="@dimen/_5sdp"
         app:cardElevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp">
+            android:layout_height="match_parent"
+           >
+            <ImageView
+                android:id="@+id/iv_buildingImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/building"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_card_building"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></RelativeLayout>
             <TextView
                 android:id="@+id/tv_buildingName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_smbld"
                 android:layout_marginLeft="@dimen/_5sdp"
-                android:text="SB (Sekolah B)"
-                android:textSize="@dimen/_12sdp"
+                android:text="SB"
+                app:layout_constraintVertical_bias="0.7"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/md_theme_light_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_buildingImage"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:src="@drawable/building"
-                android:layout_marginRight="@dimen/_5sdp"
+            <TextView
+                android:id="@+id/tv_building_alias"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="wrap_content"
+android:layout_marginRight="@dimen/_5sdp"
+                app:layout_constraintHorizontal_bias="0"
+               app:layout_constraintVertical_bias="0"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_rglr"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="Gedung Sekolah B bekbekebeklbelkdffdfdgdfgdfg"
+                android:textColor="@color/md_theme_light_background"
+                android:textSize="@dimen/_10sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/tv_buildingName"></TextView>
+
+              </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

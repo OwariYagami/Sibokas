@@ -7,26 +7,103 @@
     android:background="@color/md_theme_light_primary"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <ImageView
+        android:id="@+id/iv_bg_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/poppins_smbld"
-        android:text="Home"
-        android:textAlignment="center"
-        android:textColor="@color/md_theme_light_onPrimary"
-        android:textSize="@dimen/_20sdp"
+        android:scaleType="fitStart"
+        android:src="@drawable/bg_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_80sdp"
+        android:background="@drawable/bg_home_layer">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:src="@drawable/pp_user"
+            app:civ_border_color="@color/md_theme_light_background"
+            app:civ_border_width="@dimen/_1sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
+
+        <TextView
+            android:id="@+id/text_dashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Home"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+
+        <Button
+            android:id="@+id/btn_lihat"
+            style="?attr/materialIconButtonFilledStyle"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/md_theme_light_inversePrimary"
+            android:gravity="center"
+            app:icon="@drawable/ic_notif"
+            app:iconSize="@dimen/_18sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_dashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@+id/text_dashboard"
+            app:layout_constraintTop_toTopOf="@+id/text_dashboard" />
+
+        <TextView
+            android:id="@+id/tv_greeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_rglr"
+            android:text="Good Morning!"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Owari Yagami"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_greeting" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_130sdp"
         android:background="@drawable/bg_home_container"
         android:padding="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,40 +115,62 @@
             android:id="@+id/tv_headerhome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/poppins_smbld"
-            android:text="Buildings"
-            android:textColor="@color/md_theme_light_primary"
+            android:text="Gedung Kuliah"
+            android:textColor="@color/md_theme_light_scrim"
             android:textSize="@dimen/_16sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/searchView"></TextView>
 
         <androidx.appcompat.widget.SearchView
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/bg_search"
-            style="@style/Widget.Material3.SearchBar"
             android:id="@+id/searchView"
+            style="@style/Widget.Material3.SearchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_search"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_headerhome"
+            app:layout_constraintTop_toTopOf="parent"
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search here ..." />
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/_5sdp"
             android:id="@+id/recycler_home"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="@dimen/_160sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_headerhome"
             tools:listitem="@layout/item_buildings"></androidx.recyclerview.widget.RecyclerView>
 
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Gedung Kuliah"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_home"></TextView>
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title2"></com.google.android.material.card.MaterialCardView>
         <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
 
 

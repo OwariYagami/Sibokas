@@ -32,6 +32,7 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
         view.findViewById<TextView>(R.id.tv_detail_bottomsheet).text = scheduleText
         loadingDialog= LoadingDialog(requireContext())
         successDialog= SuccessDialog(requireContext())
+        successDialog.desc="Berhasil CheckIn"
         val token = Token.getDecryptedToken(requireContext())
         Log.d("CEK","$classroom_id : $token")
         view.findViewById<Button>(R.id.btn_ya).setOnClickListener {

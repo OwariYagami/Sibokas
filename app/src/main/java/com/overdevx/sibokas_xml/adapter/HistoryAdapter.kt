@@ -68,9 +68,8 @@ class HistoryAdapter(private var historyList: List<Data>, private val fragmentMa
         }
         holder.card.setOnClickListener {
             if (currentHistory.status == 1) {
-                Toast.makeText(holder.context, "Klik", Toast.LENGTH_SHORT).show()
                 val modalBottomSheet= CheckoutModalBottomSheet()
-                modalBottomSheet.classname="CheckOut dari kelas ${currentHistory.classroom.name} sekarang?"
+                modalBottomSheet.classname= currentHistory.classroom.name
                 modalBottomSheet.classroom_id=currentHistory.classroom.id
                 modalBottomSheet.booking_id=currentHistory.id
                 modalBottomSheet.show(fragmentManager, ModalBottomSheet.TAG)
@@ -81,16 +80,6 @@ class HistoryAdapter(private var historyList: List<Data>, private val fragmentMa
 
     override fun getItemCount(): Int {
         return historyList.size
-    }
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun setFilter(category: String) {
-        filteredHistory = when (category) {
-            "all" -> historyList
-            "today" -> historyList.filter { it.isToday() }
-            "yesterday" -> historyList.filter { it.isYesterday() }
-            else -> historyList
-        }
-        notifyDataSetChanged()
     }
 
     fun updateData(newData: List<Data>) {

@@ -98,7 +98,7 @@ class DashboardFragment : Fragment() {
         // Inisialisasi RecyclerView dan Adapter
         buildingsAdapter = BuildingsAdapter(emptyList(), requireContext())
 
-        buildingRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        buildingRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         buildingRecyclerView.adapter = buildingsAdapter
 
         // Panggil fungsi untuk mendapatkan data building
