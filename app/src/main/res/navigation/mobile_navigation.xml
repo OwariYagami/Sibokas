@@ -22,4 +22,9 @@
         android:name="com.overdevx.sibokas_xml.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.overdevx.sibokas_xml.ui.profile.ProfileFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

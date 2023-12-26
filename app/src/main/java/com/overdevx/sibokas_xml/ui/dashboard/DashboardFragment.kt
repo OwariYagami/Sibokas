@@ -1,6 +1,8 @@
 package com.overdevx.sibokas_xml.ui.dashboard
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,10 +11,14 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import android.Manifest
+import android.graphics.BitmapFactory
 import com.overdevx.sibokas_xml.adapter.BuildingsAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.LoadingDialog
@@ -36,7 +42,7 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var buildingRecyclerView: RecyclerView
     private var allBuildings: List<Buildings> = emptyList()
-
+    val PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 1
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,10 +54,6 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
         loadingDialog= LoadingDialog(requireContext())
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         buildingRecyclerView = binding.recyclerHome
 
         binding.searchView.setOnQueryTextListener(object :
@@ -66,6 +68,22 @@ class DashboardFragment : Fragment() {
             }
 
         })
+        // Periksa apakah izin sudah diberikan
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Jika belum, minta izin
+            requestPermissions(
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+            )
+        } else {
+            // Jika izin sudah diberikan, lanjutkan dengan mengatur latar belakang
+            setImageViewBackground()
+        }
+        setImageViewBackground()
         return root
     }
 
@@ -137,11 +155,32 @@ class DashboardFragment : Fragment() {
 
             })
     }
+    // Metode untuk menangani hasil permintaan izin
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_REQUEST_READ_EXTERNAL_STORAGE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Izin diberikan, lanjutkan dengan mengatur latar belakang
+                    setImageViewBackground()
+                } else {
+                    // Izin ditolak, beri tahu pengguna atau ambil tindakan lain sesuai kebijakan aplikasi Anda
+                }
+            }
+        }
+    }
+    private fun setImageViewBackground() {
+        // Dalam onCreate atau metode lain yang sesuai
+        val preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val backgroundImagePath = preferences.getString("backgroundImagePath", null)
 
-    private fun retrieveTokenFromStorage(): String? {
-        // Mengambil token dari SharedPreferences
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("token", null)
+        if (backgroundImagePath != null) {
+            val imageView = binding.ivBgHome
+            val bitmap = BitmapFactory.decodeFile(backgroundImagePath)
+            imageView.setImageBitmap(bitmap)
+        }
     }
 }
