@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.profile.EditActivity">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Edit Profile"
+        app:titleTextAppearance="@font/poppins_smbld"
+        app:titleTextColor="@color/md_theme_light_background"
+        app:navigationIcon="@drawable/ic_back"
+        android:background="@color/md_theme_light_primary">
+
+    </com.google.android.material.appbar.MaterialToolbar>
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintVertical_bias="1.0">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F1F1F1"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:src="@drawable/pp_user"
+            app:civ_border_color="@color/md_theme_light_scrim"
+            app:civ_border_width="@dimen/_1sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
+
+        <Button
+            android:id="@+id/btn_gallery"
+            style="?attr/materialIconButtonFilledStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:icon="@drawable/ic_camera"
+            app:iconSize="@dimen/_20sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintStart_toStartOf="@+id/iv_profile"
+            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+
+        <TextView
+            android:layout_marginTop="@dimen/_16sdp"
+            android:id="@+id/tv_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Username"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profile"></TextView>
+
+        <RelativeLayout
+            android:id="@+id/relative_input1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext_edit"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title1"
+            app:layout_constraintVertical_bias="0">
+
+
+            <EditText
+                android:id="@+id/et_username_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@null"
+                android:fontFamily="@font/poppins_rglr"
+                android:hint="username"
+                android:textColor="@color/md_theme_light_onPrimary"
+                android:textColorHint="@color/md_theme_light_tertiary"></EditText>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/_16sdp"
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Email"
+            android:textColor="@color/md_theme_light_scrim"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative_input1"></TextView>
+
+        <RelativeLayout
+            android:id="@+id/relative_input2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext_edit"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title2"
+            app:layout_constraintVertical_bias="0">
+
+
+            <EditText
+                android:id="@+id/et_email_input"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@null"
+                android:fontFamily="@font/poppins_rglr"
+                android:hint="email@gmail.com"
+                android:textColor="@color/md_theme_light_onPrimary"
+                android:textColorHint="@color/md_theme_light_tertiary"></EditText>
+        </RelativeLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Update Profile"
+            android:backgroundTint="@color/md_theme_light_primary"
+            android:textColor="@color/md_theme_light_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative_input2"></com.google.android.material.button.MaterialButton>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

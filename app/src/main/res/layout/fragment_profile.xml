@@ -74,7 +74,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_username"></TextView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_pesan"
+            android:id="@+id/btn_edit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -269,7 +269,59 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/bg_change"
+            android:id="@+id/constraintLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
+            <RelativeLayout
+                android:layout_margin="@dimen/_5sdp"
+                android:id="@+id/btn_changepw"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center"
+                android:background="@drawable/bg_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/ic_resetpw"></ImageView>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_changepw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:fontFamily="@font/poppins_smbld"
+                android:text="Change Password"
+                android:textColor="@color/md_theme_light_primary"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_changepw"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <Button
+                android:id="@+id/btn_next_changepw"
+                style="?attr/materialIconButtonStyle"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_rightt"
+                app:iconSize="@dimen/_25sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@drawable/bg_logout"
             android:layout_marginTop="@dimen/_10sdp"
@@ -278,7 +330,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
             <Button
                 android:id="@+id/btn_logout"

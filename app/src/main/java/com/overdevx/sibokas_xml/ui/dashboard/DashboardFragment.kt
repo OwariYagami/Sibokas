@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.Manifest
 import android.graphics.BitmapFactory
+import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.BuildingsAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.LoadingDialog
@@ -176,11 +177,26 @@ class DashboardFragment : Fragment() {
         // Dalam onCreate atau metode lain yang sesuai
         val preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val backgroundImagePath = preferences.getString("backgroundImagePath", null)
+        val preferences2 = requireActivity().getSharedPreferences("UserPref",Context.MODE_PRIVATE)
+        val userPhoto = preferences2.getString("userPhoto", null)
+        val userName = preferences2.getString("userName", null)
 
         if (backgroundImagePath != null) {
+            binding.tvUsername.text=userName
             val imageView = binding.ivBgHome
             val bitmap = BitmapFactory.decodeFile(backgroundImagePath)
             imageView.setImageBitmap(bitmap)
+        } else {
+            binding.ivBgHome.setBackgroundResource(R.drawable.bg_home)
         }
+
+        if (userPhoto != null) {
+            val imageView2 = binding.circleImageView
+            val bitmap2 = BitmapFactory.decodeFile(userPhoto)
+            imageView2.setImageBitmap(bitmap2)
+        } else {
+            binding.circleImageView.setImageResource(R.drawable.ic_nopp)
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package com.overdevx.sibokas_xml.ui.auth
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -49,10 +50,11 @@ class LoginActivity : AppCompatActivity() {
                             val userId = userData.id
                             val userName = userData.name
                             val userEmail = userData.email
+                            saveUserResponse(userId,userName,userEmail,pass)
                             Toast.makeText(
                                 this@LoginActivity,
-                                "Login dengan nama : $userName",
-                                Toast.LENGTH_SHORT
+                                "Login dengan nama : $userName $userEmail $pass $userId",
+                                Toast.LENGTH_LONG
                             ).show()
 
 
@@ -69,6 +71,17 @@ class LoginActivity : AppCompatActivity() {
 
             })
         }
+    }
+
+    private fun saveUserResponse(id:Int,name:String,email:String,pass:String){
+        // Simpan path file ke SharedPreferences
+        val preferences = this@LoginActivity.getSharedPreferences("UserPref",Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putInt("userId", id)
+        editor.putString("userName", name)
+        editor.putString("userEmail", email)
+        editor.putString("userPass", pass)
+        editor.apply()
     }
 
 }

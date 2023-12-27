@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/bottomSheetDragHandleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </com.google.android.material.bottomsheet.BottomSheetDragHandleView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomSheetDragHandleView">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Change Your Password"
+            android:textColor="@color/md_theme_light_onBackground"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textview.MaterialTextView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/tv_title_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Masukkan Password Lama"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_onBackground"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"></com.google.android.material.textview.MaterialTextView>
+
+        <RelativeLayout
+            android:id="@+id/relative_input1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext_edit"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_version"
+            app:layout_constraintVertical_bias="0">
+
+
+            <EditText
+                android:id="@+id/et_pass_old"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_toStartOf="@+id/btn_hide"
+                android:background="@null"
+                android:fontFamily="@font/poppins_rglr"
+                android:hint="Password"
+                android:inputType="textVisiblePassword"
+                android:textColor="@color/md_theme_light_scrim"
+                android:textColorHint="@color/md_theme_light_tertiary"
+                android:textSize="@dimen/_12sdp"></EditText>
+            <com.google.android.material.button.MaterialButton
+                android:layout_alignParentEnd="true"
+                android:id="@+id/btn_hide"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:icon="@drawable/ic_eyeslash"
+                app:iconSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RelativeLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Masukkan Password Baru"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_onBackground"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative_input1"></com.google.android.material.textview.MaterialTextView>
+
+        <RelativeLayout
+            android:id="@+id/relative_input2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext_edit"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title2"
+            app:layout_constraintVertical_bias="0">
+
+
+            <EditText
+                android:id="@+id/et_pass_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_toStartOf="@+id/btn_hide_new"
+                android:background="@null"
+                android:fontFamily="@font/poppins_rglr"
+                android:hint="Password"
+                android:inputType="textVisiblePassword"
+                android:textColor="@color/md_theme_light_scrim"
+                android:textColorHint="@color/md_theme_light_tertiary"
+                android:textSize="@dimen/_12sdp"></EditText>
+            <Button
+                android:layout_alignParentEnd="true"
+                android:id="@+id/btn_hide_new"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:icon="@drawable/ic_eyeslash"
+                app:iconSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/tv_title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_smbld"
+            android:text="Konfirmasi Password Baru"
+            android:textAlignment="center"
+            android:textColor="@color/md_theme_light_onBackground"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative_input2"></com.google.android.material.textview.MaterialTextView>
+
+        <RelativeLayout
+            android:id="@+id/relative_input3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext_edit"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title3"
+            app:layout_constraintVertical_bias="0">
+
+
+            <EditText
+                android:id="@+id/et_pass_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_toStartOf="@+id/btn_hide_confirm"
+                android:background="@null"
+                android:fontFamily="@font/poppins_rglr"
+                android:hint="Password"
+                android:inputType="textVisiblePassword"
+                android:textColor="@color/md_theme_light_scrim"
+                android:textColorHint="@color/md_theme_light_tertiary"
+                android:textSize="@dimen/_12sdp"></EditText>
+            <com.google.android.material.button.MaterialButton
+                android:layout_alignParentEnd="true"
+                android:id="@+id/btn_hide_confirm"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:icon="@drawable/ic_eyeslash"
+                app:iconSize="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RelativeLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:backgroundTint="@color/md_theme_light_primary"
+            android:text="Update Password"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/md_theme_light_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relative_input3"></com.google.android.material.button.MaterialButton>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

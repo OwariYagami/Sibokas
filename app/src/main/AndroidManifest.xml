@@ -27,7 +27,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.profile.AboutActivity"
+            android:name=".ui.profile.EditActivity"
             android:exported="false" />
         <activity
             android:name=".ui.profile.ActivityHelp"
