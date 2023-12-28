@@ -16,11 +16,13 @@ import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.data.AboutBottomSheet
 import com.overdevx.sibokas_xml.data.ChangeModalBottomSheet
 import com.overdevx.sibokas_xml.data.ChangepwModalBottomSheet
+import com.overdevx.sibokas_xml.data.LogoutDialog
 import com.overdevx.sibokas_xml.databinding.FragmentHomeBinding
 import com.overdevx.sibokas_xml.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
+    private lateinit var logoutDialog: LogoutDialog
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
+        logoutDialog= LogoutDialog(requireContext())
         binding.btnNextHelp.setOnClickListener {
             val intent = Intent(requireContext(), ActivityHelp::class.java)
             startActivity(intent)
@@ -64,6 +66,10 @@ class ProfileFragment : Fragment() {
                 requireActivity().supportFragmentManager,
                 ChangeModalBottomSheet.TAG
             )
+        }
+
+        binding.btnLogout.setOnClickListener {
+            logoutDialog.show()
         }
 
         setImageViewBackground()

@@ -9,7 +9,10 @@ import com.overdevx.sibokas_xml.data.getLogin.UserResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
 import com.overdevx.sibokas_xml.data.getHistory.HistoryResponse
+import com.overdevx.sibokas_xml.data.getLogout.LogoutResponse
 import com.overdevx.sibokas_xml.data.getReport.UploadResponse
+import com.overdevx.sibokas_xml.data.getUpdateUser.ChangePassResponse
+import com.overdevx.sibokas_xml.data.getUpdateUser.UpdatePassRequest
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdateUserRequest
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdateUserResponse
 import okhttp3.MultipartBody
@@ -81,4 +84,16 @@ interface ApiService {
         @Path("idUser") idUser: Int,
         @Body request: UpdateUserRequest
     ): Call<UpdateUserResponse>
+
+    @PUT("change-student-password/{idUser}")
+    fun changePass(
+        @Header("Authorization") token : String,
+        @Path("idUser") idUser: Int,
+        @Body request: UpdatePassRequest
+    ): Call<ChangePassResponse>
+
+    @POST("logout/student")
+    fun logout(
+        @Header("Authorization") token : String
+    ) : Call<Void>
 }

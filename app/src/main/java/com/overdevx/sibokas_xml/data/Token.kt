@@ -31,7 +31,12 @@ object Token {
             null
         }
     }
-
+    fun deleteToken(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove(ENCRYPTED_TOKEN_KEY)
+        editor.apply()
+    }
     fun redirectToMainActivityIfTokenExists(context: Context) {
         val decryptedToken = getDecryptedToken(context)
         if (decryptedToken != null) {
