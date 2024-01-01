@@ -63,6 +63,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.airbnb.android:lottie:6.2.0")
+    implementation ("androidx.work:work-runtime:2.7.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

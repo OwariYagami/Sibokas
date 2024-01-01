@@ -1,7 +1,12 @@
 package com.overdevx.sibokas_xml.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,31 +22,37 @@ import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroo
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.ClassroomList
+import com.overdevx.sibokas_xml.data.viewModel.AlarmReceiver
+import com.overdevx.sibokas_xml.data.viewModel.BroadcastService
+import com.overdevx.sibokas_xml.data.viewModel.BroadcastSer
+import com.overdevx.sibokas_xml.data.viewModel.ForegroundService
 import com.overdevx.sibokas_xml.databinding.ActivityClassroomBinding
 import com.overdevx.sibokas_xml.ui.notifications.NotificationsFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Calendar
 
 class ClassroomActivity : AppCompatActivity() {
     private lateinit var binding: ActivityClassroomBinding
     private lateinit var classroomAdapter: ClassroomAdapter
     private lateinit var classroomRecyclerView: RecyclerView
     private var allClassroom: List<ClassroomList> = emptyList()
+
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityClassroomBinding.inflate(layoutInflater)
         setContentView(binding.root)
-binding.tvHeaderclassroom.setOnClickListener {
-    val fragment = DashboardFragment()
-    // Use FragmentManager to replace the current fragment with the new one
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.nav_host_fragment_activity_main, fragment)
-        .addToBackStack(null)
-        .commit()
-}
-      val toolbar = binding.toolbar
+        binding.tvHeaderclassroom.setOnClickListener {
+            val fragment = DashboardFragment()
+            // Use FragmentManager to replace the current fragment with the new one
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -50,13 +61,15 @@ binding.tvHeaderclassroom.setOnClickListener {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-        classroomRecyclerView=binding.recyclerClassroom
 
-        classroomAdapter= ClassroomAdapter(emptyList())
-        classroomRecyclerView.layoutManager=LinearLayoutManager(this@ClassroomActivity)
-        classroomRecyclerView.adapter=classroomAdapter
+        classroomRecyclerView = binding.recyclerClassroom
 
-        binding.searchView.setOnQueryTextListener(object :  androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        classroomAdapter = ClassroomAdapter(emptyList())
+        classroomRecyclerView.layoutManager = LinearLayoutManager(this@ClassroomActivity)
+        classroomRecyclerView.adapter = classroomAdapter
+
+        binding.searchView.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -68,34 +81,40 @@ binding.tvHeaderclassroom.setOnClickListener {
 
         })
 
-        val buildingId = intent.getIntExtra("Building_id",0)
+        val buildingId = intent.getIntExtra("Building_id", 0)
         val token = Token.getDecryptedToken(this@ClassroomActivity)
-         if (buildingId != 0){
-            ApiClient.retrofit.getClassroomByBuilding("Bearer $token",buildingId)
-                .enqueue(object :Callback<BuildingWithClassroomsResponse>{
+        if (buildingId != 0) {
+            ApiClient.retrofit.getClassroomByBuilding("Bearer $token", buildingId)
+                .enqueue(object : Callback<BuildingWithClassroomsResponse> {
                     override fun onResponse(
                         call: Call<BuildingWithClassroomsResponse>,
                         response: Response<BuildingWithClassroomsResponse>
                     ) {
-                       if(response.isSuccessful){
-                           val buildingWithClassroomsResponse: BuildingWithClassroomsResponse?=response.body()
-                           val buildingListResponse : BuildingListResponse?=buildingWithClassroomsResponse?.data
-                           val classroomList = buildingListResponse?.classrooms ?: emptyList()
-                           Log.d("API_CALL", "Response: $classroomList")
-                           allClassroom=classroomList
-                           classroomAdapter =ClassroomAdapter(allClassroom)
-                            classroomRecyclerView.adapter=classroomAdapter
+                        if (response.isSuccessful) {
+                            val buildingWithClassroomsResponse: BuildingWithClassroomsResponse? =
+                                response.body()
+                            val buildingListResponse: BuildingListResponse? =
+                                buildingWithClassroomsResponse?.data
+                            val classroomList = buildingListResponse?.classrooms ?: emptyList()
+                            Log.d("API_CALL", "Response: $classroomList")
+                            allClassroom = classroomList
+                            classroomAdapter = ClassroomAdapter(allClassroom)
+                            classroomRecyclerView.adapter = classroomAdapter
 
-                       }
+                        }
                     }
 
-                    override fun onFailure(call: Call<BuildingWithClassroomsResponse>, t: Throwable) {
-                       Log.d("FAILURE",t.message.toString())
+                    override fun onFailure(
+                        call: Call<BuildingWithClassroomsResponse>,
+                        t: Throwable
+                    ) {
+                        Log.d("FAILURE", t.message.toString())
                     }
 
                 })
         }
     }
+
     private fun filterData(query: String?) {
         // Jika query kosong, tampilkan semua data
         if (query.isNullOrBlank()) {
@@ -112,6 +131,7 @@ binding.tvHeaderclassroom.setOnClickListener {
         // Update data di dalam adapter dengan hasil filter
         classroomAdapter.updateData(filteredClassroom)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -122,9 +142,6 @@ binding.tvHeaderclassroom.setOnClickListener {
         return super.onContextItemSelected(item)
     }
 
-    private fun retrieveTokenFromStorage(): String? {
-        // Mengambil token dari SharedPreferences
-        val sharedPreferences = this@ClassroomActivity.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("token", null)
-    }
+
+
 }

@@ -1,36 +1,43 @@
 package com.overdevx.sibokas_xml.ui.dashboard
 
+import android.Manifest
+import android.app.ActivityManager
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.Manifest
-import android.graphics.BitmapFactory
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.BuildingsAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
 import com.overdevx.sibokas_xml.data.LoadingDialog
-import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.Token
+import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
+import com.overdevx.sibokas_xml.data.viewModel.BroadcastService
+import com.overdevx.sibokas_xml.data.viewModel.CountdownViewModel
 import com.overdevx.sibokas_xml.databinding.FragmentDashboardBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 
 class DashboardFragment : Fragment() {
@@ -38,12 +45,15 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     private lateinit var buildingsAdapter: BuildingsAdapter
     private lateinit var loadingDialog: LoadingDialog
+    var TAG = "Main"
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var buildingRecyclerView: RecyclerView
     private var allBuildings: List<Buildings> = emptyList()
     val PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 1
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,7 +64,7 @@ class DashboardFragment : Fragment() {
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        loadingDialog= LoadingDialog(requireContext())
+        loadingDialog = LoadingDialog(requireContext())
         buildingRecyclerView = binding.recyclerHome
 
         binding.searchView.setOnQueryTextListener(object :
@@ -69,22 +79,23 @@ class DashboardFragment : Fragment() {
             }
 
         })
-        // Periksa apakah izin sudah diberikan
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Jika belum, minta izin
-            requestPermissions(
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
-            )
-        } else {
-            // Jika izin sudah diberikan, lanjutkan dengan mengatur latar belakang
-            setImageViewBackground()
-        }
+//        // Periksa apakah izin sudah diberikan
+//        if (ContextCompat.checkSelfPermission(
+//                requireContext(),
+//                Manifest.permission.READ_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // Jika belum, minta izin
+//            requestPermissions(
+//                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+//                PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+//            )
+//        } else {
+//            // Jika izin sudah diberikan, lanjutkan dengan mengatur latar belakang
+//            setImageViewBackground()
+//        }
         setImageViewBackground()
+        setBookingInfo()
         return root
     }
 
@@ -106,10 +117,6 @@ class DashboardFragment : Fragment() {
         buildingsAdapter.updateData(filteredBuildings)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,12 +124,11 @@ class DashboardFragment : Fragment() {
         // Inisialisasi RecyclerView dan Adapter
         buildingsAdapter = BuildingsAdapter(emptyList(), requireContext())
 
-        buildingRecyclerView.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        buildingRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         buildingRecyclerView.adapter = buildingsAdapter
 
-        // Panggil fungsi untuk mendapatkan data building
         getBuildings()
-
     }
 
     private fun getBuildings() {
@@ -156,33 +162,35 @@ class DashboardFragment : Fragment() {
 
             })
     }
+
     // Metode untuk menangani hasil permintaan izin
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            PERMISSION_REQUEST_READ_EXTERNAL_STORAGE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Izin diberikan, lanjutkan dengan mengatur latar belakang
-                    setImageViewBackground()
-                } else {
-                    // Izin ditolak, beri tahu pengguna atau ambil tindakan lain sesuai kebijakan aplikasi Anda
-                }
-            }
-        }
-    }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        when (requestCode) {
+//            PERMISSION_REQUEST_READ_EXTERNAL_STORAGE -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // Izin diberikan, lanjutkan dengan mengatur latar belakang
+//                    setImageViewBackground()
+//                } else {
+//                    // Izin ditolak, beri tahu pengguna atau ambil tindakan lain sesuai kebijakan aplikasi Anda
+//                }
+//            }
+//        }
+//    }
+
     private fun setImageViewBackground() {
         // Dalam onCreate atau metode lain yang sesuai
         val preferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val backgroundImagePath = preferences.getString("backgroundImagePath", null)
-        val preferences2 = requireActivity().getSharedPreferences("UserPref",Context.MODE_PRIVATE)
+        val preferences2 = requireActivity().getSharedPreferences("UserPref", Context.MODE_PRIVATE)
         val userPhoto = preferences2.getString("userPhoto", null)
         val userName = preferences2.getString("userName", null)
 
         if (backgroundImagePath != null) {
-            binding.tvUsername.text=userName
+            binding.tvUsername.text = userName
             val imageView = binding.ivBgHome
             val bitmap = BitmapFactory.decodeFile(backgroundImagePath)
             imageView.setImageBitmap(bitmap)
@@ -199,4 +207,26 @@ class DashboardFragment : Fragment() {
         }
 
     }
+
+    private fun setBookingInfo(){
+        val preferences = requireActivity().getSharedPreferences("BookingPref", Context.MODE_PRIVATE)
+        val kelas = preferences.getString("kelas", "")
+        val alias = preferences.getString("kelasAlias", "")
+        val waktu = preferences.getString("waktu", "")
+        val endTime = preferences.getString("endtime", "")
+
+        if(waktu!=""){
+            binding.constraintLayout8.visibility=View.VISIBLE
+            binding.tvBuild.text=kelas
+            binding.tvDetailBuild.text=alias
+            binding.tvWaktu.text="$waktu WIB"
+            binding.tvCount.text=endTime
+        }else{
+            binding.constraintLayout8.visibility=View.INVISIBLE
+        }
+    }
+
+
+
+
 }

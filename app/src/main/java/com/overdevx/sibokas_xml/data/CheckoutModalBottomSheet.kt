@@ -1,5 +1,9 @@
 package com.overdevx.sibokas_xml.data
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +18,7 @@ import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
 import com.overdevx.sibokas_xml.data.getCheckout.CheckOutResponse
 import com.overdevx.sibokas_xml.data.getCheckout.CheckoutRequest
+import com.overdevx.sibokas_xml.data.viewModel.AlarmReceiver
 import com.overdevx.sibokas_xml.databinding.BookingBottomsheetLayoutBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,7 +29,7 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
     var classroom_id: Int = 0
     var booking_id: Int = 0
     var status: String = ""
-    val checkoutRequest = CheckoutRequest(_method = "PUT", classroom_id = 11)
+
 
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var successDialog: SuccessDialog
@@ -33,6 +38,7 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val checkoutRequest = CheckoutRequest(_method = "PUT", classroom_id = classroom_id)
         val view = inflater.inflate(R.layout.checkout_bottomsheet_layout, container, false)
         view.findViewById<TextView>(R.id.textView2).text = "CheckOut dari kelas $classname sekarang ?"
         loadingDialog= LoadingDialog(requireContext())
@@ -56,7 +62,14 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
 
                                 Toast.makeText(requireContext(), "${checkOutResponse?.message}", Toast.LENGTH_SHORT).show()
                                 status = checkOutResponse?.message.toString()
+                                Log.d("API_CALL","$status")
                                 val checkinData=checkOutResponse?.data
+                                val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                                val intent = Intent(requireContext(), AlarmReceiver::class.java)
+                                val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent,
+                                    PendingIntent.FLAG_IMMUTABLE)
+                                alarmManager.cancel(pendingIntent)
+                                Toast.makeText(requireContext(), "Alarm Canceled", Toast.LENGTH_SHORT).show()
                                 loadingDialog.dismiss()
                                 successDialog.show()
                                 dismiss()
@@ -64,7 +77,7 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
 
                             }else{
                                 loadingDialog.dismiss()
-                                Log.d("API_CALL",response?.message().toString())
+                                response?.body()?.let { it1 -> Log.d("API_CALL", it1.message) }
                             }
                         }
 
@@ -74,6 +87,8 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
                         }
 
                     })
+            }else{
+                Log.d("CEK","GAGAL")
             }
         }
 

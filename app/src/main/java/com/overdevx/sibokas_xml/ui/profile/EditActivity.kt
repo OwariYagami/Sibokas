@@ -1,7 +1,12 @@
 package com.overdevx.sibokas_xml.ui.profile
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,10 +20,12 @@ import com.overdevx.sibokas_xml.data.SuccessDialog
 import com.overdevx.sibokas_xml.data.Token
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdateUserRequest
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdateUserResponse
+import com.overdevx.sibokas_xml.data.viewModel.AlarmReceiver
 import com.overdevx.sibokas_xml.databinding.ActivityEditBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Calendar
 
 class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
@@ -31,6 +38,7 @@ class EditActivity : AppCompatActivity() {
         loadingDialog= LoadingDialog(this@EditActivity)
         successDialog= SuccessDialog(this@EditActivity)
         setImageViewBackground()
+
         val preferences = this@EditActivity.getSharedPreferences("UserPref",Context.MODE_PRIVATE)
         val username = preferences.getString("userName","").toString()
         val email = preferences.getString("userEmail","").toString()
@@ -110,4 +118,5 @@ class EditActivity : AppCompatActivity() {
         }
 
     }
+
 }
