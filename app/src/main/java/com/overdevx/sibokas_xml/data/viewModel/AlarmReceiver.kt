@@ -66,6 +66,7 @@ class AlarmReceiver : BroadcastReceiver() {
             } else {
                 // Izin sudah diberikan, lanjutkan untuk menampilkan notifikasi
                 notify(1, builder.build())
+                saveInfoBooking(context,"","","","")
             }
         }
     }
@@ -84,6 +85,16 @@ class AlarmReceiver : BroadcastReceiver() {
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+    private fun saveInfoBooking(context: Context,kelas: String,kelasalias:String, waktu: String, endTime:String) {
+        // Simpan path file ke SharedPreferences
+        val preferences =context.getSharedPreferences("BookingPref",Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("kelas", kelas)
+        editor.putString("kelasAlias", kelasalias)
+        editor.putString("waktu", waktu)
+        editor.putString("endtime", endTime)
+        editor.apply()
     }
 }
 

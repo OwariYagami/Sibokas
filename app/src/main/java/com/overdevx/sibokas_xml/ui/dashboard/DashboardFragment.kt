@@ -37,6 +37,8 @@ import com.overdevx.sibokas_xml.databinding.FragmentDashboardBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 
@@ -46,6 +48,7 @@ class DashboardFragment : Fragment() {
     private lateinit var buildingsAdapter: BuildingsAdapter
     private lateinit var loadingDialog: LoadingDialog
     var TAG = "Main"
+    private var countdownTimer: CountDownTimer? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -129,6 +132,58 @@ class DashboardFragment : Fragment() {
         buildingRecyclerView.adapter = buildingsAdapter
 
         getBuildings()
+
+        // Ambil nilai endSch dari SharedPreferences
+        val sharedPreferences =
+            requireContext().getSharedPreferences("BookingPref", Context.MODE_PRIVATE)
+        var endSch = sharedPreferences.getString("endtime", "")
+        Log.d("END","$endSch")
+
+        if (endSch != "") {
+            // Hitung selisih waktu antara endSch dan waktu sekarang
+            val currentTime = Calendar.getInstance()
+            val endTime = Calendar.getInstance()
+            endSch ="$endSch:00"
+            val endTimeParts = endSch?.split(":")
+            endTime.set(Calendar.HOUR_OF_DAY, endTimeParts?.get(0)?.toIntOrNull() ?: 0)
+            endTime.set(Calendar.MINUTE, endTimeParts?.get(1)?.toIntOrNull() ?: 0)
+            endTime.set(Calendar.SECOND, endTimeParts?.get(2)?.toIntOrNull() ?: 0)
+
+            val timeDifferenceInMillis = endTime.timeInMillis - currentTime.timeInMillis
+            // Buat dan jalankan Countdown Timer
+            countdownTimer = object : CountDownTimer(timeDifferenceInMillis, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val seconds = millisUntilFinished / 1000
+                    val minutes = seconds / 60
+                    val hours = minutes / 60
+
+                    val formattedTime = String.format(
+                        Locale.getDefault(),
+                        "%02d:%02d:%02d",
+                        hours % 24, minutes % 60, seconds % 60
+                    )
+
+                    binding.tvCount.text = formattedTime
+                }
+
+                override fun onFinish() {
+                    // Countdown selesai, lakukan sesuatu (misalnya tampilkan pesan)
+                    binding.tvCount.text = "Selesai"
+                }
+            }
+            countdownTimer?.start()
+        } else {
+            binding.tvDesc.text = "Anda tidak sedang memesan kelas saat ini"
+        }
+
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Hentikan Countdown Timer saat fragment dihancurkan
+        countdownTimer?.cancel()
+
     }
 
     private fun getBuildings() {
@@ -208,25 +263,30 @@ class DashboardFragment : Fragment() {
 
     }
 
-    private fun setBookingInfo(){
-        val preferences = requireActivity().getSharedPreferences("BookingPref", Context.MODE_PRIVATE)
+    private fun setBookingInfo() {
+        val preferences =
+            requireActivity().getSharedPreferences("BookingPref", Context.MODE_PRIVATE)
         val kelas = preferences.getString("kelas", "")
         val alias = preferences.getString("kelasAlias", "")
         val waktu = preferences.getString("waktu", "")
         val endTime = preferences.getString("endtime", "")
 
-        if(waktu!=""){
-            binding.constraintLayout8.visibility=View.VISIBLE
-            binding.tvBuild.text=kelas
-            binding.tvDetailBuild.text=alias
-            binding.tvWaktu.text="$waktu WIB"
-            binding.tvCount.text=endTime
-        }else{
-            binding.constraintLayout8.visibility=View.INVISIBLE
+        if (waktu != "") {
+            binding.constraintLayout8.visibility = View.VISIBLE
+            binding.ivNodata.visibility = View.INVISIBLE
+            binding.tvBuild.text = kelas
+            binding.tvDetailBuild.text = alias
+            binding.tvDesc.text = "Segera keluar dari kelas jika waktu sudah habis"
+            binding.tvTime.text = "$waktu WIB"
+            binding.tvCount.text = endTime
+        } else {
+            binding.ivNodata.visibility = View.VISIBLE
+            binding.tvCount.visibility = View.INVISIBLE
+            binding.tvDesc.text = "Anda tidak sedang memesan kelas saat ini"
+            binding.btnCheckout.visibility = View.INVISIBLE
+            binding.constraintLayout8.visibility = View.INVISIBLE
         }
     }
-
-
 
 
 }

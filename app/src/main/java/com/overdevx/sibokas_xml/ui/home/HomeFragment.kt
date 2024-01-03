@@ -73,8 +73,10 @@ class HomeFragment : Fragment() {
         historyrRecyclerView.adapter = historyAdapter
 
         getHistory()
-
-        val checkedFilter = binding.chipGroup.checkedChipId
+        binding.chipAll.isChecked=true
+        binding.chipToday.isChecked=false
+        binding.chipYesterday.isChecked=false
+        binding.chipOnBooked.isChecked=false
         binding.chipGroup.setOnCheckedStateChangeListener { group, checkedFilter ->
             when (group.getTextChipChecked()) {
                 "All" -> filterData(null)

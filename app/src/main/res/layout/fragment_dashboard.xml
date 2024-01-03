@@ -215,6 +215,18 @@
                                 android:textSize="@dimen/_14sdp"></TextView>
 
                         </RelativeLayout>
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:id="@+id/tv_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
+                            android:fontFamily="@font/poppins_smbld"
+                            android:text="02:45:10"
+                            android:textColor="@color/md_theme_light_primary"
+                            android:textSize="@dimen/_30sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rl_header"></TextView>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/constraintLayout8"
@@ -304,34 +316,15 @@
                                 app:layout_constraintTop_toBottomOf="@+id/tv_waktu"></TextView>
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:id="@+id/tv_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_40sdp"
-                            android:fontFamily="@font/poppins_smbld"
-                            android:text="02:45:10"
-                            android:textColor="@color/md_theme_light_primary"
-                            android:textSize="@dimen/_30sdp"
+                        <ImageView
+                            android:id="@+id/iv_nodata"
+                            android:layout_width="@dimen/_75sdp"
+                            android:layout_height="@dimen/_75sdp"
+                            android:src="@drawable/nodata"
+                            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout8"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/rl_header"></TextView>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_edit"
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="@dimen/_40sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
-                            android:backgroundTint="@color/md_theme_light_primary"
-                            android:fontFamily="@font/poppins_smbld"
-                            android:text="Checkout"
-                            android:textColor="@color/md_theme_light_background"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_desc"></com.google.android.material.button.MaterialButton>
-
+                            app:layout_constraintTop_toBottomOf="@+id/rl_header"></ImageView>
                         <TextView
                             android:id="@+id/tv_desc"
                             android:layout_width="@dimen/_160sdp"
@@ -345,6 +338,23 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"></TextView>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_checkout"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:backgroundTint="@color/md_theme_light_primary"
+                            android:fontFamily="@font/poppins_smbld"
+                            android:text="Checkout"
+                            android:textColor="@color/md_theme_light_background"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_desc"></com.google.android.material.button.MaterialButton>
+
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>

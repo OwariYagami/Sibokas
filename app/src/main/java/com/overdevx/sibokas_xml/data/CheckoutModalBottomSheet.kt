@@ -70,6 +70,7 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
                                     PendingIntent.FLAG_IMMUTABLE)
                                 alarmManager.cancel(pendingIntent)
                                 Toast.makeText(requireContext(), "Alarm Canceled", Toast.LENGTH_SHORT).show()
+                                saveInfoBooking("","","","")
                                 loadingDialog.dismiss()
                                 successDialog.show()
                                 dismiss()
@@ -95,7 +96,16 @@ class CheckoutModalBottomSheet : BottomSheetDialogFragment() {
         return view
     }
 
-
+    private fun saveInfoBooking(kelas: String,kelasalias:String, waktu: String, endTime:String) {
+        // Simpan path file ke SharedPreferences
+        val preferences = requireContext().getSharedPreferences("BookingPref",Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("kelas", kelas)
+        editor.putString("kelasAlias", kelasalias)
+        editor.putString("waktu", waktu)
+        editor.putString("endtime", endTime)
+        editor.apply()
+    }
     companion object {
         const val TAG = "ModalBottomSheet"
     }

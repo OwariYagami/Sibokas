@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.ClassroomAdapter
 import com.overdevx.sibokas_xml.data.ApiClient
+import com.overdevx.sibokas_xml.data.LoadingDialog
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingListResponse
 import com.overdevx.sibokas_xml.data.getClassroomByBuilding.BuildingWithClassroomsResponse
 import com.overdevx.sibokas_xml.data.Token
@@ -38,6 +39,7 @@ class ClassroomActivity : AppCompatActivity() {
     private lateinit var classroomAdapter: ClassroomAdapter
     private lateinit var classroomRecyclerView: RecyclerView
     private var allClassroom: List<ClassroomList> = emptyList()
+    private lateinit var loadingDialog: LoadingDialog
 
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +63,7 @@ class ClassroomActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-
+        loadingDialog=LoadingDialog(this@ClassroomActivity)
         classroomRecyclerView = binding.recyclerClassroom
 
         classroomAdapter = ClassroomAdapter(emptyList())
@@ -84,6 +86,7 @@ class ClassroomActivity : AppCompatActivity() {
         val buildingId = intent.getIntExtra("Building_id", 0)
         val token = Token.getDecryptedToken(this@ClassroomActivity)
         if (buildingId != 0) {
+            loadingDialog.show()
             ApiClient.retrofit.getClassroomByBuilding("Bearer $token", buildingId)
                 .enqueue(object : Callback<BuildingWithClassroomsResponse> {
                     override fun onResponse(
@@ -100,7 +103,11 @@ class ClassroomActivity : AppCompatActivity() {
                             allClassroom = classroomList
                             classroomAdapter = ClassroomAdapter(allClassroom)
                             classroomRecyclerView.adapter = classroomAdapter
+                            loadingDialog.dismiss()
 
+                        }else{
+                            loadingDialog.dismiss()
+                            Log.d("FAILURE", response?.body().toString())
                         }
                     }
 
@@ -108,6 +115,7 @@ class ClassroomActivity : AppCompatActivity() {
                         call: Call<BuildingWithClassroomsResponse>,
                         t: Throwable
                     ) {
+                        loadingDialog.dismiss()
                         Log.d("FAILURE", t.message.toString())
                     }
 

@@ -30,7 +30,9 @@ class ScheduleAdapter(private val context: Context, private val schedules: List<
 
     override fun onBindViewHolder(holder: ScheduleAdapter.scheduleViewHolder, position: Int) {
        val currentSchedule = schedules[position]
-        holder.time.text="${currentSchedule.start_time} - ${currentSchedule.end_time} WIB"
+        val starttime = currentSchedule.start_time.substring(0,5)
+        val endtime = currentSchedule.end_time.substring(0,5)
+        holder.time.text="$starttime - $endtime WIB"
 
     }
 
