@@ -1,8 +1,7 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.API
 import android.content.Context
 import android.security.KeyPairGeneratorSpec
 import android.security.keystore.KeyProperties
-import android.util.Base64
 import java.math.BigInteger
 import java.security.KeyPairGenerator
 import java.security.KeyStore

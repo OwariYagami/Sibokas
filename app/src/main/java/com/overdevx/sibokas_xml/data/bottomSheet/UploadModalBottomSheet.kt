@@ -1,56 +1,44 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.bottomSheet
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
-import com.overdevx.sibokas_xml.databinding.BookingBottomsheetLayoutBinding
-import com.overdevx.sibokas_xml.databinding.ChangeBottomsheetLayoutBinding
 import com.overdevx.sibokas_xml.databinding.UploadBottomsheetLayoutBinding
 import com.overdevx.sibokas_xml.ui.notifications.CameraActivity
-import com.overdevx.sibokas_xml.ui.notifications.NotificationsFragment
-import de.hdodenhof.circleimageview.CircleImageView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 
-class ProfileModalBottomSheet() :
+class UploadModalBottomSheet(uploadListener: UploadDialogListener) :
     BottomSheetDialogFragment() {
-    // lateinit var binding: UploadBottomsheetLayoutBinding
-    lateinit var binding: ChangeBottomsheetLayoutBinding
+   // lateinit var binding: UploadBottomsheetLayoutBinding
+    lateinit var binding: UploadBottomsheetLayoutBinding
     var imageUri: Uri? = null
     var status: String = ""
+    private var mBottomSheetListener2: UploadDialogListener? = null
 
+    init {
+        this.mBottomSheetListener2 = uploadListener
+    }
 
     companion object {
         private const val REQUEST_PICK_IMAGE = 1
         const val TAG = "ModalBottomSheet"
 
 
+    }
+
+    interface UploadDialogListener {
+        fun onImageSelected(imageUri: File)
     }
 
     private var imageFile: File? = null
@@ -73,13 +61,17 @@ class ProfileModalBottomSheet() :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ChangeBottomsheetLayoutBinding.bind(
+        binding = UploadBottomsheetLayoutBinding.bind(
             inflater.inflate(
-                R.layout.change_bottomsheet_layout,
+                R.layout.upload_bottomsheet_layout,
                 container
             )
         )
 
+        binding.cvTake.setOnClickListener {
+            val intent = Intent(requireContext(), CameraActivity::class.java)
+            startActivity(intent)
+        }
         binding.cvGal.setOnClickListener {
             pickImageFromGallery()
         }
@@ -117,17 +109,9 @@ class ProfileModalBottomSheet() :
                             os.use {
                                 inputStream.copyTo(it)
                             }
+
                             imageFile = file
-                            // Simpan path file ke SharedPreferences
-                            val preferences =
-                                requireActivity().getSharedPreferences("UserPref",Context.MODE_PRIVATE)
-                            val editor = preferences.edit()
-                            editor.putString("userPhoto", file.absolutePath)
-                            editor.apply()
-                            val imageView = requireActivity().findViewById<CircleImageView>(R.id.iv_profile)
-                            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                            imageView.setImageBitmap(bitmap)
-                            dismiss()
+                            mBottomSheetListener2?.onImageSelected(imageFile!!)
 
                         }
                     }
@@ -136,5 +120,13 @@ class ProfileModalBottomSheet() :
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        /** attach listener from parent fragment */
+        try {
+            mBottomSheetListener2 = context as UploadDialogListener?
+        } catch (e: ClassCastException) {
+        }
+    }
 
 }

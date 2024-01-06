@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.dialog
 
 import android.app.Dialog
 import android.content.Context

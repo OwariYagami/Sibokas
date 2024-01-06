@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -7,16 +7,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
-import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.getLogout.LogoutResponse
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.databinding.LogoutDialogLayoutBinding
 import com.overdevx.sibokas_xml.ui.auth.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

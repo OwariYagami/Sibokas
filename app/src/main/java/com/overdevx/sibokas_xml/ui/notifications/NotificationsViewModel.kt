@@ -1,10 +1,8 @@
 package com.overdevx.sibokas_xml.ui.notifications
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.Card
+import com.overdevx.sibokas_xml.data.API.Card
 
 class NotificationsViewModel : ViewModel() {
 

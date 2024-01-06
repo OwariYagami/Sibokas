@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.bottomSheet
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -13,13 +13,14 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.dialog.SuccessDialog
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.data.getCheckout.CheckOutResponse
 import com.overdevx.sibokas_xml.data.getCheckout.CheckoutRequest
 import com.overdevx.sibokas_xml.data.viewModel.AlarmReceiver
-import com.overdevx.sibokas_xml.databinding.BookingBottomsheetLayoutBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

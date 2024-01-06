@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.bottomSheet
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,18 +9,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.dialog.SuccessDialog
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.data.getUpdateUser.ChangePassResponse
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdatePassRequest
-import com.overdevx.sibokas_xml.databinding.BookingBottomsheetLayoutBinding
-import com.overdevx.sibokas_xml.databinding.ChangeBottomsheetLayoutBinding
 import com.overdevx.sibokas_xml.databinding.ChangepwModalBottomsheetLayoutBinding
 import retrofit2.Call
 import retrofit2.Callback

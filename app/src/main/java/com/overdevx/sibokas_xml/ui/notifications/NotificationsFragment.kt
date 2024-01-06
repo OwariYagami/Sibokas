@@ -1,6 +1,5 @@
 package com.overdevx.sibokas_xml.ui.notifications
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,21 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.ApiClient
-import com.overdevx.sibokas_xml.data.Card
-import com.overdevx.sibokas_xml.data.LoadingDialog
-import com.overdevx.sibokas_xml.data.SharedViewModel
-import com.overdevx.sibokas_xml.data.Token
-import com.overdevx.sibokas_xml.data.UploadModalBottomSheet
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.API.Token
+import com.overdevx.sibokas_xml.data.bottomSheet.UploadModalBottomSheet
 import com.overdevx.sibokas_xml.data.getHistory.HistoryResponse
 import com.overdevx.sibokas_xml.data.getReport.UploadResponse
 import com.overdevx.sibokas_xml.databinding.FragmentNotificationsBinding
@@ -33,7 +26,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import java.util.Objects
 
 class NotificationsFragment : Fragment(), UploadModalBottomSheet.UploadDialogListener {
 

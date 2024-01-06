@@ -1,14 +1,6 @@
 package com.overdevx.sibokas_xml.ui.dashboard
 
-import android.Manifest
-import android.app.ActivityManager
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -16,30 +8,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.BuildingsAdapter
-import com.overdevx.sibokas_xml.data.ApiClient
-import com.overdevx.sibokas_xml.data.LoadingDialog
-import com.overdevx.sibokas_xml.data.Token
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.data.getBuildingList.BuildingResponse
 import com.overdevx.sibokas_xml.data.getBuildingList.Buildings
-import com.overdevx.sibokas_xml.data.viewModel.BroadcastService
-import com.overdevx.sibokas_xml.data.viewModel.CountdownViewModel
 import com.overdevx.sibokas_xml.databinding.FragmentDashboardBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.Calendar
 import java.util.Locale
-import java.util.concurrent.TimeUnit
 
 
 class DashboardFragment : Fragment() {
@@ -130,6 +115,12 @@ class DashboardFragment : Fragment() {
         buildingRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         buildingRecyclerView.adapter = buildingsAdapter
+        binding.refresh.setOnRefreshListener {
+            getBuildings()
+            setBookingInfo()
+            setImageViewBackground()
+            binding.refresh.isRefreshing=false
+        }
 
         getBuildings()
 
@@ -274,6 +265,7 @@ class DashboardFragment : Fragment() {
         if (waktu != "") {
             binding.constraintLayout8.visibility = View.VISIBLE
             binding.ivNodata.visibility = View.INVISIBLE
+            binding.tvStatusDesc.visibility = View.INVISIBLE
             binding.tvBuild.text = kelas
             binding.tvDetailBuild.text = alias
             binding.tvDesc.text = "Segera keluar dari kelas jika waktu sudah habis"
@@ -282,7 +274,8 @@ class DashboardFragment : Fragment() {
         } else {
             binding.ivNodata.visibility = View.VISIBLE
             binding.tvCount.visibility = View.INVISIBLE
-            binding.tvDesc.text = "Anda tidak sedang memesan kelas saat ini"
+            binding.tvDesc.visibility = View.INVISIBLE
+            binding.tvStatusDesc.text = "Anda tidak sedang memesan kelas saat ini"
             binding.btnCheckout.visibility = View.INVISIBLE
             binding.constraintLayout8.visibility = View.INVISIBLE
         }

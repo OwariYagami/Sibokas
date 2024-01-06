@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.API
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

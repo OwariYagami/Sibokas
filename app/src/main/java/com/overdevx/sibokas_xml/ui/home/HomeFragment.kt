@@ -1,13 +1,11 @@
 package com.overdevx.sibokas_xml.ui.home
 
-import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,20 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.overdevx.sibokas_xml.R
 import com.overdevx.sibokas_xml.adapter.HistoryAdapter
-import com.overdevx.sibokas_xml.data.ApiClient
-import com.overdevx.sibokas_xml.data.LoadingDialog
-import com.overdevx.sibokas_xml.data.Token
-import com.overdevx.sibokas_xml.data.getHistory.Classroom
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.data.getHistory.Data
 import com.overdevx.sibokas_xml.data.getHistory.HistoryResponse
 import com.overdevx.sibokas_xml.databinding.FragmentHomeBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,7 +54,10 @@ class HomeFragment : Fragment() {
         historyrRecyclerView = binding.recyclerHistory
 
         loadingDialog = LoadingDialog(requireContext())
-
+        binding.chipAll.isChecked=true
+        binding.chipToday.isChecked=false
+        binding.chipYesterday.isChecked=false
+        binding.chipOnBooked.isChecked=false
         return root
     }
 

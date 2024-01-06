@@ -1,31 +1,23 @@
 package com.overdevx.sibokas_xml.ui.profile
 
-import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.ApiClient
-import com.overdevx.sibokas_xml.data.ChangeModalBottomSheet
-import com.overdevx.sibokas_xml.data.LoadingDialog
-import com.overdevx.sibokas_xml.data.ProfileModalBottomSheet
-import com.overdevx.sibokas_xml.data.SuccessDialog
-import com.overdevx.sibokas_xml.data.Token
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.bottomSheet.ProfileModalBottomSheet
+import com.overdevx.sibokas_xml.data.dialog.SuccessDialog
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdateUserRequest
 import com.overdevx.sibokas_xml.data.getUpdateUser.UpdateUserResponse
-import com.overdevx.sibokas_xml.data.viewModel.AlarmReceiver
 import com.overdevx.sibokas_xml.databinding.ActivityEditBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Calendar
 
 class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding

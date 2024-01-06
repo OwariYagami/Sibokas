@@ -1,4 +1,4 @@
-package com.overdevx.sibokas_xml.data
+package com.overdevx.sibokas_xml.data.bottomSheet
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -8,42 +8,21 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.getCheckin.CheckInResponse
-import com.overdevx.sibokas_xml.databinding.BookingBottomsheetLayoutBinding
 import com.overdevx.sibokas_xml.databinding.ChangeBottomsheetLayoutBinding
-import com.overdevx.sibokas_xml.databinding.UploadBottomsheetLayoutBinding
-import com.overdevx.sibokas_xml.ui.notifications.CameraActivity
-import com.overdevx.sibokas_xml.ui.notifications.NotificationsFragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
-class ChangeModalBottomSheet() :
+class ProfileModalBottomSheet() :
     BottomSheetDialogFragment() {
     // lateinit var binding: UploadBottomsheetLayoutBinding
     lateinit var binding: ChangeBottomsheetLayoutBinding
-    private lateinit var loadingDialog: LoadingDialog
     var imageUri: Uri? = null
     var status: String = ""
 
@@ -81,7 +60,7 @@ class ChangeModalBottomSheet() :
                 container
             )
         )
-        loadingDialog= LoadingDialog(requireContext())
+
         binding.cvGal.setOnClickListener {
             pickImageFromGallery()
         }
@@ -103,7 +82,6 @@ class ChangeModalBottomSheet() :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
-            loadingDialog.show()
             imageUri = data?.data
             if (imageUri != null) {
 
@@ -121,22 +99,16 @@ class ChangeModalBottomSheet() :
                                 inputStream.copyTo(it)
                             }
                             imageFile = file
-
                             // Simpan path file ke SharedPreferences
                             val preferences =
-                                requireActivity().getPreferences(Context.MODE_PRIVATE)
+                                requireActivity().getSharedPreferences("UserPref",Context.MODE_PRIVATE)
                             val editor = preferences.edit()
-                            editor.putString("backgroundImagePath", file.absolutePath)
+                            editor.putString("userPhoto", file.absolutePath)
                             editor.apply()
-                            val imageView = requireActivity().findViewById<ImageView>(R.id.iv_background)
+                            val imageView = requireActivity().findViewById<CircleImageView>(R.id.iv_profile)
                             val bitmap = BitmapFactory.decodeFile(file.absolutePath)
                             imageView.setImageBitmap(bitmap)
-
                             dismiss()
-                            // Tunda dismiss() selama 1 detik menggunakan Handler
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                loadingDialog.dismiss()
-                            }, 1000) // 1000 milidetik = 1 detik
 
                         }
                     }

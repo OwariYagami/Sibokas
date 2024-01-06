@@ -6,11 +6,11 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.overdevx.sibokas_xml.adapter.ScheduleAdapter
-import com.overdevx.sibokas_xml.data.ApiClient
-import com.overdevx.sibokas_xml.data.LoadingDialog
-import com.overdevx.sibokas_xml.data.ModalBottomSheet
-import com.overdevx.sibokas_xml.data.SuccessDialog
-import com.overdevx.sibokas_xml.data.Token
+import com.overdevx.sibokas_xml.data.API.ApiClient
+import com.overdevx.sibokas_xml.data.dialog.LoadingDialog
+import com.overdevx.sibokas_xml.data.bottomSheet.ModalBottomSheet
+import com.overdevx.sibokas_xml.data.dialog.SuccessDialog
+import com.overdevx.sibokas_xml.data.API.Token
 import com.overdevx.sibokas_xml.data.getDetailClassroom.ClassroomDetails
 import com.overdevx.sibokas_xml.data.getDetailClassroom.Data
 import com.overdevx.sibokas_xml.data.getDetailClassroom.Schedule
@@ -114,7 +114,7 @@ class BookingActivity : AppCompatActivity() {
 
                                 }
                                 if(selectedSchedule == null){
-                                    endSch="21:35"
+                                    endSch="20:35"
                                     startSch = currentTimeFormatted
                                 }
                                 loadingDialog.dismiss()

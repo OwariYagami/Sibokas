@@ -1,23 +1,18 @@
 package com.overdevx.sibokas_xml.ui.profile
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.overdevx.sibokas_xml.R
-import com.overdevx.sibokas_xml.data.AboutBottomSheet
-import com.overdevx.sibokas_xml.data.ChangeModalBottomSheet
-import com.overdevx.sibokas_xml.data.ChangepwModalBottomSheet
-import com.overdevx.sibokas_xml.data.LogoutDialog
-import com.overdevx.sibokas_xml.databinding.FragmentHomeBinding
+import com.overdevx.sibokas_xml.data.bottomSheet.AboutBottomSheet
+import com.overdevx.sibokas_xml.data.bottomSheet.ChangeModalBottomSheet
+import com.overdevx.sibokas_xml.data.bottomSheet.ChangepwModalBottomSheet
+import com.overdevx.sibokas_xml.data.dialog.LogoutDialog
 import com.overdevx.sibokas_xml.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
